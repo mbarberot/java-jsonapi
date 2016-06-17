@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 public class JsonApiEntityConfiguration {
     private Class entityClass;
-    private String idField;
-    private List<String> attributeFields;
     private String type;
+    private EntityConfigurationField idField;
+    private List<EntityConfigurationField> attributeFields;
 }

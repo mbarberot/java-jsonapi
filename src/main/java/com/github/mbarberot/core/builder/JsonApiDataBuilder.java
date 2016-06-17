@@ -1,7 +1,5 @@
 package com.github.mbarberot.core.builder;
 
-import com.mbarberot.jsonapi.builders.data.JSONApiAttributesBuilder;
-
 import java.util.Map;
 
 import static com.google.common.collect.ImmutableMap.of;
