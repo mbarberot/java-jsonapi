@@ -1,6 +1,8 @@
 package com.github.mbarberot.core.introspection;
 
 import com.github.mbarberot.configuration.EntityConfigurationField;
+import com.github.mbarberot.configuration.EntityConfigurationPart;
+import com.github.mbarberot.configuration.EntityConfigurationRelationship;
 import com.github.mbarberot.configuration.JsonApiEntityConfiguration;
 import com.github.mbarberot.core.converters.Converter;
 
@@ -38,8 +40,16 @@ public class IntrospectedObject {
 
     private Object get(EntityConfigurationField configField) throws NoSuchFieldException, IllegalAccessException {
         Converter converter = configField.getConverter();
+        return converter.toJsonApi(getRawValue(configField));
+    }
+
+    private Object getRawValue(EntityConfigurationPart configField) throws NoSuchFieldException, IllegalAccessException {
         Field field = klass.getDeclaredField(configField.getFieldName());
         field.setAccessible(true);
-        return converter.toJsonApi(field.get(entity));
+        return field.get(entity);
+    }
+
+    public Object getRelationship(EntityConfigurationRelationship relationConfig) throws NoSuchFieldException, IllegalAccessException {
+        return getRawValue(relationConfig);
     }
 }

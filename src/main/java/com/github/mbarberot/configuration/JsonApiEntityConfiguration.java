@@ -12,4 +12,5 @@ public class JsonApiEntityConfiguration {
     private String type;
     private EntityConfigurationField idField;
     private List<EntityConfigurationField> attributeFields;
+    private List<EntityConfigurationRelationship> relationshipFields;
 }

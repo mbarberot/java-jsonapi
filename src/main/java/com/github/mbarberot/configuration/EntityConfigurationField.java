@@ -3,11 +3,11 @@ package com.github.mbarberot.configuration;
 import com.github.mbarberot.core.converters.Converter;
 import com.github.mbarberot.core.converters.Converters;
 import lombok.Data;
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class EntityConfigurationField {
-    private String fieldName;
+public class EntityConfigurationField extends EntityConfigurationPart {
     private Converter converter;
 
     public static EntityConfigurationField field(String fieldName) {
@@ -15,7 +15,7 @@ public class EntityConfigurationField {
     }
 
     public EntityConfigurationField(String fieldName) {
-        this.fieldName = fieldName;
+        super(fieldName);
         this.converter = Converters.defaultConverter();
     }
 

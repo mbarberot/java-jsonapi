@@ -30,4 +30,9 @@ public class JsonApiDataBuilder extends MapBuilder {
         ));
         return map;
     }
+
+    public JsonApiDataBuilder relationships(JsonApiRelationshipsBuilder relationshipsBuilder) {
+        map.put("relationships", relationshipsBuilder.build());
+        return this;
+    }
 }

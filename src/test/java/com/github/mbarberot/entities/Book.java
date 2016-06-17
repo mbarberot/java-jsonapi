@@ -12,4 +12,5 @@ public class Book {
     private String isbn;
     private int pages;
     private Date publication;
+    private Author author;
 }
