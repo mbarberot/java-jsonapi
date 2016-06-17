@@ -7,4 +7,5 @@ import lombok.Data;
 @Builder
 public class Book {
     private String id;
+    private String isbn;
 }

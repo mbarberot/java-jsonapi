@@ -2,12 +2,13 @@ package com.github.mbarberot.core;
 
 import com.github.mbarberot.configuration.JsonApiConfiguration;
 import com.github.mbarberot.configuration.JsonApiEntityConfiguration;
+import com.github.mbarberot.core.introspection.IntrospectedObject;
 import com.github.mbarberot.utils.EntityConfigurationNotFoundException;
 
-import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Optional;
 
+import static com.github.mbarberot.core.builder.JsonApiAttributesBuilder.attributes;
 import static com.github.mbarberot.core.builder.JsonApiBuilder.document;
 import static com.github.mbarberot.core.builder.JsonApiDataBuilder.data;
 
@@ -19,6 +20,15 @@ public class JsonApiConverter {
     }
 
     public Map<String, Object> convert(Object entity) throws EntityConfigurationNotFoundException, NoSuchFieldException, IllegalAccessException {
+        IntrospectedObject reflected = new IntrospectedObject(getEntityConfiguration(entity), entity);
+
+        return document(
+                data(reflected.getType(), reflected.getId())
+                        .attributes(attributes().addAll(reflected.getAttributes()))
+        ).build();
+    }
+
+    private JsonApiEntityConfiguration getEntityConfiguration(Object entity) throws EntityConfigurationNotFoundException {
         Optional<JsonApiEntityConfiguration> result = configuration.getEntityConfigurations()
                 .stream()
                 .filter(cfg -> cfg.getEntityClass() == entity.getClass())
@@ -28,17 +38,6 @@ public class JsonApiConverter {
             throw new EntityConfigurationNotFoundException(entity.toString());
         }
 
-        JsonApiEntityConfiguration entityConfiguration = result.get();
-        Class entityClass = entity.getClass();
-
-        Field idField = entityClass.getDeclaredField(entityConfiguration.getIdField());
-        idField.setAccessible(true);
-        Object id = idField.get(entity);
-        Object type = entityConfiguration.getType();
-
-        return document(
-                data(type, id)
-        ).build();
-
+        return result.get();
     }
 }
