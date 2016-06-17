@@ -3,10 +3,15 @@ package com.github.mbarberot.core;
 import com.github.mbarberot.configuration.EntityConfigurationField;
 import com.github.mbarberot.configuration.JsonApiConfiguration;
 import com.github.mbarberot.configuration.JsonApiEntityConfiguration;
+import com.github.mbarberot.core.converters.Converter;
 import com.github.mbarberot.core.converters.Converters;
 import com.github.mbarberot.entities.Book;
 import com.github.mbarberot.utils.EntityConfigurationNotFoundException;
+import com.sun.javafx.scene.layout.region.Margins;
 import org.junit.Test;
+
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import static com.github.mbarberot.configuration.EntityConfigurationField.field;
 import static com.github.mbarberot.core.converters.Converters.*;
@@ -22,6 +27,7 @@ public class JsonApiConverterTest {
                 .id("someid")
                 .isbn("someisbn")
                 .pages(200)
+                .publication(new GregorianCalendar(2016,1,1).getTime())
                 .build();
 
         JsonApiConfiguration config = JsonApiConfiguration.builder()
@@ -31,7 +37,8 @@ public class JsonApiConverterTest {
                                 .idField(field("id"))
                                 .attributeFields(newArrayList(
                                         field("isbn"),
-                                        field("pages")
+                                        field("pages"),
+                                        field("publication").withConverter(value -> "" + ((Date) value).getTime())
                                 ))
                                 .type("book")
                                 .build()
@@ -44,7 +51,8 @@ public class JsonApiConverterTest {
                         "data", newHashMap(of(
                                 "attributes", newHashMap(of(
                                         "pages", "200",
-                                        "isbn", "someisbn"
+                                        "isbn", "someisbn",
+                                        "publication", "1454281200000"
                                         )),
                                 "id", "someid",
                                 "type", "book"
