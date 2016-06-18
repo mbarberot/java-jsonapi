@@ -15,6 +15,7 @@ import static com.github.mbarberot.configuration.EntityConfigurationRelationship
 import static com.google.common.collect.ImmutableMap.of;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
+import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
 
 public class JsonApiConverterTest {
@@ -41,7 +42,7 @@ public class JsonApiConverterTest {
                                 .attributeFields(newArrayList(
                                         field("isbn"),
                                         field("pages"),
-                                        field("publication").withConverter(value -> "" + ((Date) value).getTime())
+                                        field("publication").withConverter(value -> format("%d", ((Date) value).getTime()))
                                 ))
                                 .relationshipFields(newArrayList(
                                         relationship("author")
