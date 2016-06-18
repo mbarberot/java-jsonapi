@@ -25,7 +25,7 @@ public class JsonApiConverterTest {
                 .id("someid")
                 .isbn("someisbn")
                 .pages(200)
-                .publication(new GregorianCalendar(2016, 1, 1).getTime())
+                .publication(new Date(1454281200000L))
                 .author(Author.builder()
                         .id("someauthorid")
                         .firstname("jon")
