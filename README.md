@@ -1,2 +1,5 @@
 # java-jsonapi
-A simple JSON API &lt;-> POJO converter
+
+[![Build Status](https://travis-ci.org/mbarberot/java-jsonapi.svg?branch=master)](https://travis-ci.org/mbarberot/java-jsonapi)
+
+A simple JSON API <-> POJO converter
