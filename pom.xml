@@ -8,6 +8,10 @@
     <artifactId>java-jsonapi</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -24,7 +28,8 @@
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.2.0</version>
                 <configuration>
-                    <repoToken>${env.JAVAJSONAPI_COVERALLSTOKEN}</repoToken>
+                    <repoToken>${env.COVERALLS_TOKEN}</repoToken>
+                    <sourceEncoding>UTF-8</sourceEncoding>
                 </configuration>
             </plugin>
             <plugin>
