@@ -15,28 +15,45 @@ public class Relationship {
         this.data = data;
     }
 
+    public Relationship(PaginatedLinks links) {
+        this.links = links;
+    }
+
+    public Relationship(Meta meta) {
+        this.meta = meta;
+    }
+
+    public Relationship(Resource data, PaginatedLinks links, Meta meta) {
+        this.data = data;
+        this.links = links;
+        this.meta = meta;
+    }
+
     public PaginatedLinks getLinks() {
         return links;
     }
 
-    public void setLinks(PaginatedLinks links) {
+    public Relationship setLinks(PaginatedLinks links) {
         this.links = links;
+        return this;
     }
 
     public Resource getData() {
         return data;
     }
 
-    public void setData(Resource data) {
+    public Relationship setData(Resource data) {
         this.data = data;
+        return this;
     }
 
     public Meta getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public Relationship setMeta(Meta meta) {
         this.meta = meta;
+        return this;
     }
 
     @Override

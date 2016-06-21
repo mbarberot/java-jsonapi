@@ -7,8 +7,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Before;
 
 class JacksonTest {
-
-    protected ObjectMapper mapper;
+    private ObjectMapper mapper;
 
     @Before
     public void setUp() throws Exception {
@@ -17,7 +16,7 @@ class JacksonTest {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
-    public String jsonify(Object object) throws JsonProcessingException {
+    String jsonify(Object object) throws JsonProcessingException {
         return mapper.writeValueAsString(object);
     }
 }
