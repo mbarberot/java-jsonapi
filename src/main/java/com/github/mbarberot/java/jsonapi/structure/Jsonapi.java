@@ -15,16 +15,18 @@ public class Jsonapi {
         return version;
     }
 
-    public void setVersion(String version) {
+    public Jsonapi setVersion(String version) {
         this.version = version;
+        return this;
     }
 
     public Meta getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public Jsonapi setMeta(Meta meta) {
         this.meta = meta;
+        return this;
     }
 
     @Override
