@@ -1,38 +1,42 @@
 package com.github.mbarberot.java.jsonapi.structure.document;
 
-import com.github.mbarberot.java.jsonapi.structure.JsonApi;
+import com.github.mbarberot.java.jsonapi.structure.Jsonapi;
 import com.github.mbarberot.java.jsonapi.structure.Meta;
 import com.github.mbarberot.java.jsonapi.structure.links.Links;
+import com.github.mbarberot.java.jsonapi.structure.links.PaginatedLinks;
 
 public class Document {
     private Meta meta;
-    private JsonApi jsonApi;
-    private Links links;
+    private Jsonapi jsonapi;
+    private PaginatedLinks links;
 
     protected Document() {
     }
 
-    public void setMeta(Meta meta) {
+    public Document setMeta(Meta meta) {
         this.meta = meta;
+        return this;
     }
 
-    public void setJsonApi(JsonApi jsonApi) {
-        this.jsonApi = jsonApi;
+    public Document setJsonapi(Jsonapi jsonapi) {
+        this.jsonapi = jsonapi;
+        return this;
     }
 
-    public void setLinks(Links links) {
+    public Document setLinks(PaginatedLinks links) {
         this.links = links;
+        return this;
     }
 
     public Meta getMeta() {
         return meta;
     }
 
-    public JsonApi getJsonApi() {
-        return jsonApi;
+    public Jsonapi getJsonapi() {
+        return jsonapi;
     }
 
-    public Links getLinks() {
+    public PaginatedLinks getLinks() {
         return links;
     }
 
@@ -44,7 +48,7 @@ public class Document {
         Document document = (Document) o;
 
         if (meta != null ? !meta.equals(document.meta) : document.meta != null) return false;
-        if (jsonApi != null ? !jsonApi.equals(document.jsonApi) : document.jsonApi != null) return false;
+        if (jsonapi != null ? !jsonapi.equals(document.jsonapi) : document.jsonapi != null) return false;
         return links != null ? links.equals(document.links) : document.links == null;
 
     }
@@ -52,7 +56,7 @@ public class Document {
     @Override
     public int hashCode() {
         int result = meta != null ? meta.hashCode() : 0;
-        result = 31 * result + (jsonApi != null ? jsonApi.hashCode() : 0);
+        result = 31 * result + (jsonapi != null ? jsonapi.hashCode() : 0);
         result = 31 * result + (links != null ? links.hashCode() : 0);
         return result;
     }

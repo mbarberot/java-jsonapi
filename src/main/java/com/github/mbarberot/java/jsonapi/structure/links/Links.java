@@ -7,6 +7,14 @@ public class Links {
     protected Links() {
     }
 
+    protected Links(String self) {
+        this.self = self;
+    }
+
+    protected Links(Related related) {
+        this.related = related;
+    }
+
     public String getSelf() {
         return self;
     }

@@ -1,19 +1,29 @@
 package com.github.mbarberot.java.jsonapi.structure.document;
 
-import com.github.mbarberot.java.jsonapi.structure.resources.Included;
+import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
+
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 public class DataDocument extends Document {
-    private Included included;
+    private List<Resource> included;
 
     protected DataDocument() {
     }
 
-    public Included getIncluded() {
+    public List<Resource> getIncluded() {
         return included;
     }
 
-    public void setIncluded(Included included) {
+    public DataDocument setIncluded(List<Resource> included) {
         this.included = included;
+        return this;
+    }
+
+    public DataDocument setIncluded(Resource... included) {
+        this.included = newArrayList(included);
+        return this;
     }
 
     @Override

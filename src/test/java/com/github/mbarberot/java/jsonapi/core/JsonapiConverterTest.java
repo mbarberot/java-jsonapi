@@ -20,7 +20,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
 
-public class JsonApiConverterTest {
+public class JsonapiConverterTest {
     @Test
     public void convertSingle() throws Exception {
         Book entity = Book.builder()

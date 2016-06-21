@@ -9,6 +9,14 @@ public class PaginatedLinks extends Links {
     protected PaginatedLinks() {
     }
 
+    public PaginatedLinks(String self) {
+        super(self);
+    }
+
+    public PaginatedLinks(Related related) {
+        super(related);
+    }
+
     public String getFirst() {
         return first;
     }

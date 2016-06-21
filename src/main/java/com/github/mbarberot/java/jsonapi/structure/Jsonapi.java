@@ -1,13 +1,13 @@
 package com.github.mbarberot.java.jsonapi.structure;
 
-public class JsonApi {
+public class Jsonapi {
     private String version;
     private Meta meta;
 
-    protected JsonApi() {
+    protected Jsonapi() {
     }
 
-    public JsonApi(String version) {
+    public Jsonapi(String version) {
         this.version = version;
     }
 
@@ -32,10 +32,10 @@ public class JsonApi {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        JsonApi jsonApi = (JsonApi) o;
+        Jsonapi jsonapi = (Jsonapi) o;
 
-        if (version != null ? !version.equals(jsonApi.version) : jsonApi.version != null) return false;
-        return meta != null ? meta.equals(jsonApi.meta) : jsonApi.meta == null;
+        if (version != null ? !version.equals(jsonapi.version) : jsonapi.version != null) return false;
+        return meta != null ? meta.equals(jsonapi.meta) : jsonapi.meta == null;
 
     }
 
