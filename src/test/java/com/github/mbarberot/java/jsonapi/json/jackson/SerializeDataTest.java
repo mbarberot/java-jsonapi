@@ -8,6 +8,7 @@ import com.github.mbarberot.java.jsonapi.structure.links.PaginatedLinks;
 import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 import org.junit.Test;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 import static org.skyscreamer.jsonassert.JSONCompareMode.STRICT;
 
@@ -36,7 +37,7 @@ public class SerializeDataTest extends JacksonTest {
                         "  }" +
                         "}",
                 jsonify(new SingleDataDocument(new Resource("1", "book"))
-                        .setIncluded(new Resource("1", "author"))
+                        .setIncluded(newArrayList(new Resource("1", "author")))
                         .setMeta(new Meta().add("copyright", "Copyright 2016 Foo."))
                         .setJsonapi(new Jsonapi("1.0"))
                         .setLinks(new PaginatedLinks("/api/route/to/book/1"))),
@@ -77,7 +78,7 @@ public class SerializeDataTest extends JacksonTest {
                         new Resource("1", "book"),
                         new Resource("2", "book"),
                         new Resource("3", "book"))
-                        .setIncluded(new Resource("1", "author"))
+                        .setIncluded(newArrayList(new Resource("1", "author")))
                         .setMeta(new Meta().add("copyright", "Copyright 2016 Foo."))
                         .setJsonapi(new Jsonapi("1.0"))
                         .setLinks(new PaginatedLinks("/api/route/to/book/1"))),

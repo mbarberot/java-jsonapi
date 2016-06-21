@@ -95,9 +95,9 @@ public class SerializeRelationshipTest extends JacksonTest {
                         "}",
                 jsonify(newHashMap(of(
                         "relationships", new Relationships()
-                                .add("author", new Relationship(new PaginatedLinks("/api/route/to/user/1"))
+                                .add("author", new Relationship(new Meta().add("foo", "bar"))
                                         .setData(new Resource("1", "user"))
-                                        .setMeta(new Meta().add("foo", "bar")))
+                                        .setLinks(new PaginatedLinks("/api/route/to/user/1")))
                 ))),
                 STRICT
         );

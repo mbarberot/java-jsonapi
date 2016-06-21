@@ -21,11 +21,6 @@ public class DataDocument extends Document {
         return this;
     }
 
-    public DataDocument setIncluded(Resource... included) {
-        this.included = newArrayList(included);
-        return this;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
