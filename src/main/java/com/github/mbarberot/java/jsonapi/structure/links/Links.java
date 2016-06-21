@@ -7,11 +7,11 @@ public class Links {
     protected Links() {
     }
 
-    protected Links(String self) {
+    public Links(String self) {
         this.self = self;
     }
 
-    protected Links(Related related) {
+    public  Links(Related related) {
         this.related = related;
     }
 

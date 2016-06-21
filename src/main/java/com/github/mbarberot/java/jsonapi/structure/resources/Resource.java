@@ -1,13 +1,14 @@
 package com.github.mbarberot.java.jsonapi.structure.resources;
 
 import com.github.mbarberot.java.jsonapi.structure.Meta;
+import com.github.mbarberot.java.jsonapi.structure.links.Links;
 
 public class Resource {
     private String id;
     private String type;
     private Attributes attributes;
     private Relationships relationships;
-    private ResourceLinks links;
+    private Links links;
     private Meta meta;
 
     @SuppressWarnings("unused")
@@ -35,7 +36,7 @@ public class Resource {
         return relationships;
     }
 
-    public ResourceLinks getLinks() {
+    public Links getLinks() {
         return links;
     }
 
@@ -53,7 +54,7 @@ public class Resource {
         return this;
     }
 
-    public Resource setLinks(ResourceLinks links) {
+    public Resource setLinks(Links links) {
         this.links = links;
         return this;
     }
