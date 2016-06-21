@@ -2,7 +2,6 @@ package com.github.mbarberot.java.jsonapi.json.jackson;
 
 import com.github.mbarberot.java.jsonapi.structure.Jsonapi;
 import com.github.mbarberot.java.jsonapi.structure.Meta;
-import com.github.mbarberot.java.jsonapi.structure.document.Document;
 import com.github.mbarberot.java.jsonapi.structure.document.MultipleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.document.SingleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.links.PaginatedLinks;
@@ -15,12 +14,6 @@ import static org.skyscreamer.jsonassert.JSONCompareMode.STRICT;
 public class SerializeDataTest extends JacksonTest {
     @Test
     public void serializeSingleData() throws Exception {
-        Document document = new SingleDataDocument(new Resource("1", "book"))
-                .setIncluded(new Resource("1", "author"))
-                .setMeta(new Meta().add("copyright", "Copyright 2016 Foo."))
-                .setJsonapi(new Jsonapi("1.0"))
-                .setLinks(new PaginatedLinks("/api/route/to/book/1"));
-        System.out.println(mapper.writeValueAsString(document));
         assertEquals(
                 "" +
                         "{" +
@@ -42,22 +35,17 @@ public class SerializeDataTest extends JacksonTest {
                         "    \"self\": \"/api/route/to/book/1\"" +
                         "  }" +
                         "}",
-                mapper.writeValueAsString(document),
+                jsonify(new SingleDataDocument(new Resource("1", "book"))
+                        .setIncluded(new Resource("1", "author"))
+                        .setMeta(new Meta().add("copyright", "Copyright 2016 Foo."))
+                        .setJsonapi(new Jsonapi("1.0"))
+                        .setLinks(new PaginatedLinks("/api/route/to/book/1"))),
                 STRICT
         );
     }
 
     @Test
     public void serializeMultipleData() throws Exception {
-        Document document = new MultipleDataDocument(
-                new Resource("1", "book"),
-                new Resource("2", "book"),
-                new Resource("3", "book"))
-                .setIncluded(new Resource("1", "author"))
-                .setMeta(new Meta().add("copyright", "Copyright 2016 Foo."))
-                .setJsonapi(new Jsonapi("1.0"))
-                .setLinks(new PaginatedLinks("/api/route/to/book/1"));
-        System.out.println(mapper.writeValueAsString(document));
         assertEquals(
                 "" +
                         "{" +
@@ -85,7 +73,14 @@ public class SerializeDataTest extends JacksonTest {
                         "    \"self\": \"/api/route/to/book/1\"" +
                         "  }" +
                         "}",
-                mapper.writeValueAsString(document),
+                jsonify(new MultipleDataDocument(
+                        new Resource("1", "book"),
+                        new Resource("2", "book"),
+                        new Resource("3", "book"))
+                        .setIncluded(new Resource("1", "author"))
+                        .setMeta(new Meta().add("copyright", "Copyright 2016 Foo."))
+                        .setJsonapi(new Jsonapi("1.0"))
+                        .setLinks(new PaginatedLinks("/api/route/to/book/1"))),
                 STRICT
         );
     }
