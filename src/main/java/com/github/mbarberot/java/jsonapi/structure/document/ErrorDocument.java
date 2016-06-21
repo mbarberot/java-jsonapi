@@ -1,23 +1,32 @@
 package com.github.mbarberot.java.jsonapi.structure.document;
 
-import com.github.mbarberot.java.jsonapi.structure.errors.Errors;
+import com.github.mbarberot.java.jsonapi.structure.errors.Error;
+
+import java.util.List;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 public class ErrorDocument extends Document {
-    private Errors errors;
+    private List<Error> errors;
 
     protected ErrorDocument() {
     }
 
-    public ErrorDocument(Errors errors) {
+    public ErrorDocument(List<Error> errors) {
         this.errors = errors;
     }
 
-    public Errors getErrors() {
+    public ErrorDocument(Error... errors) {
+        this.errors = newArrayList(errors);
+    }
+
+    public List<Error> getErrors() {
         return errors;
     }
 
-    public void setErrors(Errors errors) {
+    public ErrorDocument setErrors(List<Error> errors) {
         this.errors = errors;
+        return this;
     }
 
     @Override

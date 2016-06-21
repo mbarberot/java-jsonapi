@@ -7,20 +7,26 @@ public class Source {
     protected Source() {
     }
 
+    public Source(String pointer) {
+        this.pointer = pointer;
+    }
+
     public String getPointer() {
         return pointer;
     }
 
-    public void setPointer(String pointer) {
+    public Source setPointer(String pointer) {
         this.pointer = pointer;
+        return this;
     }
 
     public String getParameter() {
         return parameter;
     }
 
-    public void setParameter(String parameter) {
+    public Source setParameter(String parameter) {
         this.parameter = parameter;
+        return this;
     }
 
     @Override

@@ -12,7 +12,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 import static org.skyscreamer.jsonassert.JSONCompareMode.STRICT;
 
-public class SerializeDataTest extends JacksonTest {
+public class SerializeDataDocumentTest extends JacksonTest {
     @Test
     public void serializeSingleData() throws Exception {
         assertEquals(

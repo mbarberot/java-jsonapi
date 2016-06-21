@@ -15,6 +15,10 @@ public class Error {
     protected Error() {
     }
 
+    public Error(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
@@ -27,56 +31,63 @@ public class Error {
         return links;
     }
 
-    public void setLinks(ErrorLinks links) {
+    public Error setLinks(ErrorLinks links) {
         this.links = links;
+        return this;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public Error setStatus(String status) {
         this.status = status;
+        return this;
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public Error setCode(String code) {
         this.code = code;
+        return this;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
+    public Error setTitle(String title) {
         this.title = title;
+        return this;
     }
 
     public String getDetail() {
         return detail;
     }
 
-    public void setDetail(String detail) {
+    public Error setDetail(String detail) {
         this.detail = detail;
+        return this;
     }
 
     public Source getSource() {
         return source;
     }
 
-    public void setSource(Source source) {
+    public Error setSource(Source source) {
         this.source = source;
+        return this;
     }
 
     public Meta getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public Error setMeta(Meta meta) {
         this.meta = meta;
+        return this;
     }
 
     @Override
