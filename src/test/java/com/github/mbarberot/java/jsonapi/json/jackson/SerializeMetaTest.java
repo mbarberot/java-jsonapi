@@ -14,14 +14,6 @@ import static org.skyscreamer.jsonassert.JSONCompareMode.STRICT;
 public class SerializeMetaTest extends JacksonTest {
     @Test
     public void serializeMeta() throws Exception {
-        Map<String, Object> meta = newHashMap(of("meta", new Meta()
-                .add("simpleinfo", "foo")
-                .add("arrayinfo", newArrayList("foo", "bar"))
-                .add("objectinfo", newHashMap(of(
-                        "prop1", "foo",
-                        "prop2", "bar"
-                )))));
-
         assertEquals(
                 "" +
                         "{" +
@@ -37,7 +29,13 @@ public class SerializeMetaTest extends JacksonTest {
                         "    }" +
                         "  }" +
                         "}",
-                jsonify(meta),
+                jsonify(newHashMap(of("meta", new Meta()
+                        .add("simpleinfo", "foo")
+                        .add("arrayinfo", newArrayList("foo", "bar"))
+                        .add("objectinfo", newHashMap(of(
+                                "prop1", "foo",
+                                "prop2", "bar"
+                        )))))),
                 STRICT
         );
     }
