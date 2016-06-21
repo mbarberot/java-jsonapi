@@ -9,20 +9,35 @@ public class Related {
     protected Related() {
     }
 
+    public Related(String href, Meta meta) {
+        this.href = href;
+        this.meta = meta;
+    }
+
+    public Related(String href) {
+        this.href = href;
+    }
+
+    public Related(Meta meta) {
+        this.meta = meta;
+    }
+
     public String getHref() {
         return href;
     }
 
-    public void setHref(String href) {
+    public Related setHref(String href) {
         this.href = href;
+        return this;
     }
 
     public Meta getMeta() {
         return meta;
     }
 
-    public void setMeta(Meta meta) {
+    public Related setMeta(Meta meta) {
         this.meta = meta;
+        return this;
     }
 
     @Override

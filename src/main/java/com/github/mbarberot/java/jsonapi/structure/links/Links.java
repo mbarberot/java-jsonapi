@@ -11,7 +11,12 @@ public class Links {
         this.self = self;
     }
 
-    public  Links(Related related) {
+    public Links(Related related) {
+        this.related = related;
+    }
+
+    public Links(String self, Related related) {
+        this.self = self;
         this.related = related;
     }
 
@@ -19,16 +24,18 @@ public class Links {
         return self;
     }
 
-    public void setSelf(String self) {
+    public Links setSelf(String self) {
         this.self = self;
+        return this;
     }
 
     public Related getRelated() {
         return related;
     }
 
-    public void setRelated(Related related) {
+    public Links setRelated(Related related) {
         this.related = related;
+        return this;
     }
 
     @Override
