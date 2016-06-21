@@ -10,13 +10,13 @@ import lombok.EqualsAndHashCode;
 public class EntityConfigurationField extends EntityConfigurationPart {
     private Converter converter;
 
-    public static EntityConfigurationField field(String fieldName) {
-        return new EntityConfigurationField(fieldName);
-    }
-
     public EntityConfigurationField(String fieldName) {
         super(fieldName);
         this.converter = Converters.defaultConverter();
+    }
+
+    public static EntityConfigurationField field(String fieldName) {
+        return new EntityConfigurationField(fieldName);
     }
 
     public EntityConfigurationField withConverter(Converter converter) {

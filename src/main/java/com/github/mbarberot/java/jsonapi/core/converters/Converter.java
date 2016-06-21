@@ -1,5 +1,6 @@
 package com.github.mbarberot.java.jsonapi.core.converters;
 
-public interface Converter<T> {
+@FunctionalInterface
+public interface Converter {
     String toJsonApi(Object value);
 }
