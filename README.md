@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/mbarberot/java-jsonapi.svg?branch=master)](https://travis-ci.org/mbarberot/java-jsonapi)
 [![Coverage Status](https://coveralls.io/repos/github/mbarberot/java-jsonapi/badge.svg?branch=master)](https://coveralls.io/github/mbarberot/java-jsonapi?branch=master)
+[![Jitpack Status](https://jitpack.io/v/mbarberot/java-jsonapi.svg)](https://jitpack.io/#mbarberot/java-jsonapi)
 
 A simple JSON API <-> POJO converter
 
