@@ -23,18 +23,17 @@ import static org.junit.Assert.assertEquals;
 public class JsonapiConverterTest {
     @Test
     public void convertSingle() throws Exception {
-        Book entity = Book.builder()
-                .id("someid")
-                .isbn("someisbn")
-                .pages(200)
-                .publication(new Date(1454281200000L))
-                .author(Author.builder()
-                        .id("someauthorid")
-                        .firstname("jon")
-                        .lastname("doe")
-                        .build()
-                )
-                .build();
+        Author author = new Author();
+        author.setId("someauthorid");
+        author.setFirstname("jon");
+        author.setLastname("doe");
+
+        Book entity = new Book();
+        entity.setId("someid");
+        entity.setIsbn("someisbn");
+        entity.setPages(200);
+        entity.setPublication(new Date(1454281200000L));
+        entity.setAuthor(author);
 
         JsonApiConfiguration config = JsonApiConfiguration.builder()
                 .entityConfigurations(newArrayList(
@@ -85,6 +84,6 @@ public class JsonapiConverterTest {
     @Test(expected = EntityConfigurationNotFoundException.class)
     public void noConfigFound() throws Exception {
         new JsonApiConverter(JsonApiConfiguration.builder().entityConfigurations(newArrayList()).build())
-                .convertEntity(Book.builder().build());
+                .convertEntity(new Book());
     }
 }
