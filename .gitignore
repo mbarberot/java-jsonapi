@@ -1,3 +1,10 @@
 target
 .idea
 *.iml
+.gradle
+build/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+#gradle/wrapper/gradle-wrapper.properties
+
