@@ -7,9 +7,8 @@ import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguratio
 import com.github.mbarberot.java.jsonapi.core.converters.Converter;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.Map;
-
-import static com.google.common.collect.Maps.newHashMap;
 
 public class IntrospectedObject {
     private final JsonApiEntityConfiguration configuration;
@@ -31,7 +30,7 @@ public class IntrospectedObject {
     }
 
     public Map<String, Object> getAttributes() throws NoSuchFieldException, IllegalAccessException {
-        Map<String, Object> attributesMap = newHashMap();
+        Map<String, Object> attributesMap = new HashMap<>();
         for (EntityConfigurationField configField : configuration.getAttributeFields()) {
             attributesMap.put(configField.getFieldName(), get(configField));
         }

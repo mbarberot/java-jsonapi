@@ -12,10 +12,9 @@ import com.github.mbarberot.java.jsonapi.structure.resources.Relationships;
 import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-
-import static com.google.common.collect.Maps.newHashMap;
 
 public class JsonApiConverter {
     private final JsonApiConfiguration configuration;
@@ -36,7 +35,7 @@ public class JsonApiConverter {
     }
 
     private Map<String, Relationship> convertRelationships(JsonApiEntityConfiguration config, IntrospectedObject reflected) throws EntityConfigurationNotFoundException, NoSuchFieldException, IllegalAccessException {
-        Map<String, Relationship> relationships = newHashMap();
+        Map<String, Relationship> relationships = new HashMap<>();
         for (EntityConfigurationRelationship relationConfig : config.getRelationshipFields()) {
             Object entity = reflected.getRelationship(relationConfig);
             JsonApiEntityConfiguration entityConfig = getEntityConfiguration(entity);

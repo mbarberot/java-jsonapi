@@ -4,8 +4,6 @@ import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 public class DataDocument extends Document {
     private List<Resource> included;
 

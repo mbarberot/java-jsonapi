@@ -4,10 +4,10 @@ import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Arrays.asList;
 
 public class MultipleDataDocument extends DataDocument {
-    List<Resource> data;
+    private List<Resource> data;
 
     protected MultipleDataDocument() {
     }
@@ -16,8 +16,8 @@ public class MultipleDataDocument extends DataDocument {
         this.data = data;
     }
 
-    public MultipleDataDocument(Resource ... data) {
-        this(newArrayList(data));
+    public MultipleDataDocument(Resource... data) {
+        this(asList(data));
     }
 
     public List<Resource> getData() {

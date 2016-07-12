@@ -4,7 +4,7 @@ import com.github.mbarberot.java.jsonapi.structure.errors.Error;
 
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Arrays.asList;
 
 public class ErrorDocument extends Document {
     private List<Error> errors;
@@ -17,7 +17,7 @@ public class ErrorDocument extends Document {
     }
 
     public ErrorDocument(Error... errors) {
-        this.errors = newArrayList(errors);
+        this.errors = asList(errors);
     }
 
     public List<Error> getErrors() {
