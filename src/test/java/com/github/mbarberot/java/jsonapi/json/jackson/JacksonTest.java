@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.Before;
 
+import java.io.IOException;
+
 class JacksonTest {
     private ObjectMapper mapper;
 
@@ -18,5 +20,9 @@ class JacksonTest {
 
     String jsonify(Object object) throws JsonProcessingException {
         return mapper.writeValueAsString(object);
+    }
+
+    Object jsonParse(String json, Class clazz) throws IOException {
+        return mapper.readValue(json, clazz);
     }
 }
