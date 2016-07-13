@@ -21,6 +21,6 @@ public class JacksonJsonApiTest extends JacksonTest {
                 .setMeta(new Meta().add("foo", "bar"));
 
         JSONAssert.assertEquals(json, jsonify(jsonApi), STRICT);
-        Assert.assertEquals(jsonApi, jsonParse(json, Jsonapi.class));
+        Assert.assertEquals(jsonApi, parse(json, Jsonapi.class));
     }
 }

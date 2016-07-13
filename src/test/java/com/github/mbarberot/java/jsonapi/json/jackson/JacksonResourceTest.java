@@ -54,6 +54,6 @@ public class JacksonResourceTest extends JacksonTest {
                 .setMeta(new Meta().add("foo", "bar"));
 
         JSONAssert.assertEquals(json, jsonify(resource), STRICT);
-        Assert.assertEquals(resource, jsonParse(json, Resource.class));
+        Assert.assertEquals(resource, parse(json, Resource.class));
     }
 }

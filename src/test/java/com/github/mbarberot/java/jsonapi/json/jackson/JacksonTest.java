@@ -22,7 +22,7 @@ class JacksonTest {
         return mapper.writeValueAsString(object);
     }
 
-    Object jsonParse(String json, Class clazz) throws IOException {
+    Object parse(String json, Class clazz) throws IOException {
         return mapper.readValue(json, clazz);
     }
 }

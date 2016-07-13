@@ -32,6 +32,6 @@ public class JacksonMetaTest extends JacksonTest {
                         "prop2", "bar"
                 )));
         JSONAssert.assertEquals(json, jsonify(meta), STRICT);
-        Assert.assertEquals(meta, jsonParse(json, Meta.class));
+        Assert.assertEquals(meta, parse(json, Meta.class));
     }
 }
