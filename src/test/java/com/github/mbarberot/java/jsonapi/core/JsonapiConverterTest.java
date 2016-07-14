@@ -1,7 +1,6 @@
 package com.github.mbarberot.java.jsonapi.core;
 
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiConfiguration;
-import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration;
 import com.github.mbarberot.java.jsonapi.structure.document.SingleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.resources.Attributes;
 import com.github.mbarberot.java.jsonapi.structure.resources.Relationship;
@@ -12,54 +11,22 @@ import com.github.mbarberot.java.jsonapi.test.utils.Book;
 import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
 import org.junit.Test;
 
-import java.util.Date;
-
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField.field;
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship.relationship;
+import static com.github.mbarberot.java.jsonapi.configuration.JsonApiConfiguration.newConfiguration;
+import static com.github.mbarberot.java.jsonapi.test.utils.AuthorHelper.getAuthorConfig;
+import static com.github.mbarberot.java.jsonapi.test.utils.AuthorHelper.newAuthor;
+import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.getBookConfig;
+import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.newBook;
 import static com.google.common.collect.Lists.newArrayList;
-import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
 
 public class JsonapiConverterTest {
     @Test
     public void convertSingle() throws Exception {
-        Author author = new Author();
-        author.setId("someauthorid");
-        author.setFirstname("jon");
-        author.setLastname("doe");
+        Author author = newAuthor("someauthorid", "jon", "doe");
+        Book entity = newBook("someid", "someisbn", 200, 1454281200000L, author);
 
-        Book entity = new Book();
-        entity.setId("someid");
-        entity.setIsbn("someisbn");
-        entity.setPages(200);
-        entity.setPublication(new Date(1454281200000L));
-        entity.setAuthor(author);
-
-        JsonApiConfiguration config = JsonApiConfiguration.builder()
-                .entityConfigurations(newArrayList(
-                        JsonApiEntityConfiguration.builder()
-                                .entityClass(Book.class)
-                                .idField(field("id"))
-                                .attributeFields(newArrayList(
-                                        field("isbn"),
-                                        field("pages"),
-                                        field("publication").withConverter(value -> format("%d", ((Date) value).getTime()))
-                                ))
-                                .relationshipFields(newArrayList(
-                                        relationship("author")
-                                ))
-                                .type("book")
-                                .build(),
-                        JsonApiEntityConfiguration.builder()
-                                .entityClass(Author.class)
-                                .idField(field("id"))
-                                .attributeFields(newArrayList(
-                                        field("firstname"),
-                                        field("lastname")
-                                ))
-                                .type("author")
-                                .build()
-                ))
+        JsonApiConfiguration config = newConfiguration()
+                .entityConfigurations(newArrayList(getBookConfig(), getAuthorConfig()))
                 .build();
 
         assertEquals(
@@ -83,7 +50,8 @@ public class JsonapiConverterTest {
 
     @Test(expected = EntityConfigurationNotFoundException.class)
     public void noConfigFound() throws Exception {
-        new JsonApiConverter(JsonApiConfiguration.builder().entityConfigurations(newArrayList()).build())
-                .convertEntity(new Book());
+        new JsonApiConverter(
+                newConfiguration().entityConfigurations(newArrayList()).build()
+        ).convertEntity(new Book());
     }
 }

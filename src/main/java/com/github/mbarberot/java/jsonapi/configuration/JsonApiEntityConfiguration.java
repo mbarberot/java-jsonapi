@@ -80,7 +80,7 @@ public class JsonApiEntityConfiguration {
         return result;
     }
 
-    public static JsonApiEntityConfigurationBuilder builder() {
+    public static JsonApiEntityConfigurationBuilder newEntityConfiguration() {
         return new JsonApiEntityConfigurationBuilder();
     }
 }
