@@ -3,16 +3,22 @@ package com.github.mbarberot.java.jsonapi.configuration;
 import com.github.mbarberot.java.jsonapi.core.converters.Converter;
 import com.github.mbarberot.java.jsonapi.core.converters.Converters;
 
+import static com.github.mbarberot.java.jsonapi.core.converters.Converters.defaultConverter;
+
 public class EntityConfigurationField extends EntityConfigurationPart {
     private Converter converter;
 
-    public EntityConfigurationField(String fieldName) {
-        super(fieldName);
-        this.converter = Converters.defaultConverter();
-    }
-    
     public static EntityConfigurationField field(String fieldName) {
         return new EntityConfigurationField(fieldName);
+    }
+    
+    public EntityConfigurationField(String fieldName) {
+        this(fieldName, defaultConverter());
+    }
+
+    public EntityConfigurationField(String fieldName, Converter converter) {
+        super(fieldName);
+        this.converter = converter;
     }
 
     public EntityConfigurationField withConverter(Converter converter) {
@@ -32,6 +38,7 @@ public class EntityConfigurationField extends EntityConfigurationPart {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         EntityConfigurationField that = (EntityConfigurationField) o;
 
@@ -41,6 +48,8 @@ public class EntityConfigurationField extends EntityConfigurationPart {
 
     @Override
     public int hashCode() {
-        return converter != null ? converter.hashCode() : 0;
+        int result = super.hashCode();
+        result = 31 * result + (converter != null ? converter.hashCode() : 0);
+        return result;
     }
 }
