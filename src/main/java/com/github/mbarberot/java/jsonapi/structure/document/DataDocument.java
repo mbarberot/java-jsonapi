@@ -2,19 +2,19 @@ package com.github.mbarberot.java.jsonapi.structure.document;
 
 import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 
-import java.util.List;
+import java.util.Collection;
 
 public class DataDocument extends Document {
-    private List<Resource> included;
+    private Collection<Resource> included;
 
     protected DataDocument() {
     }
 
-    public List<Resource> getIncluded() {
+    public Collection<Resource> getIncluded() {
         return included;
     }
 
-    public DataDocument setIncluded(List<Resource> included) {
+    public DataDocument setIncluded(Collection<Resource> included) {
         this.included = included;
         return this;
     }

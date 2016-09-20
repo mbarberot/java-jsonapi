@@ -13,10 +13,7 @@ import com.github.mbarberot.java.jsonapi.structure.resources.Relationships;
 import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class JsonApiBuilder implements JsonApiProcess {
@@ -28,16 +25,22 @@ public class JsonApiBuilder implements JsonApiProcess {
 
     @Override
     public DataDocument processOne(Object entity) throws JsonApiProcessException {
-        return new SingleDataDocument(processEntity(entity));
+        return new SingleDataDocument(processEntity(entity))
+                .setIncluded(processIncluded(entity));
     }
 
     @Override
     public DataDocument processMultiple(Collection<?> entities) throws JsonApiProcessException {
         List<Resource> resources = new ArrayList<>();
+        Set<Resource> included = new HashSet<>();
         for (Object entity : entities) {
             resources.add(processEntity(entity));
+            List<Resource> includedResources = processIncluded(entity);
+            if (includedResources != null) {
+                included.addAll(includedResources);
+            }
         }
-        return new MultipleDataDocument(resources);
+        return new MultipleDataDocument(resources).setIncluded(included);
     }
 
     private Resource processEntity(Object entity) throws JsonApiProcessException {
@@ -57,23 +60,46 @@ public class JsonApiBuilder implements JsonApiProcess {
         return attributes != null ? new Attributes().addAll(attributes) : null;
     }
 
-    private Relationships processRelationships(Map<String, Object> relations) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
+    private Relationships processRelationships(Map<String, Object> relations) throws JsonApiProcessException {
         if (relations == null) {
             return null;
         }
-
-        Relationships relationships = new Relationships();
-        for (Entry<String, Object> relation : relations.entrySet()) {
-            EntityWrapper relatedWrapper = factory.createEntityWrapper(relation.getValue());
-            relationships.add(
-                    relation.getKey(),
-                    new Relationship(new Resource(
-                            relatedWrapper.getId(),
-                            relatedWrapper.getType()
-                    ))
-            );
+        try {
+            Relationships relationships = new Relationships();
+            for (Entry<String, Object> relation : relations.entrySet()) {
+                EntityWrapper relatedWrapper = factory.createEntityWrapper(relation.getValue());
+                relationships.add(
+                        relation.getKey(),
+                        new Relationship(new Resource(
+                                relatedWrapper.getId(),
+                                relatedWrapper.getType()
+                        ))
+                );
+            }
+            return relationships;
+        } catch (JsonApiIntrospectionException | EntityConfigurationNotFoundException e) {
+            throw new JsonApiProcessException("Failed to process relationships", e);
         }
 
-        return relationships;
+    }
+
+    private List<Resource> processIncluded(Object entity) throws JsonApiProcessException {
+        try {
+            EntityWrapper wrapper = factory.createEntityWrapper(entity);
+            Map<String, Object> relations = wrapper.getRelationships();
+
+            if (relations == null) {
+                return null;
+            }
+
+            List<Resource> includedResources = new ArrayList<>();
+            for (Entry<String, Object> relation : relations.entrySet()) {
+                includedResources.add(processEntity(relation.getValue()));
+            }
+
+            return includedResources;
+        } catch (JsonApiIntrospectionException | EntityConfigurationNotFoundException e) {
+            throw new JsonApiProcessException("Failed to process included resources", e);
+        }
     }
 }

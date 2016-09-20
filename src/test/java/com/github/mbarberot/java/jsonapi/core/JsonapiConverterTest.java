@@ -2,6 +2,8 @@ package com.github.mbarberot.java.jsonapi.core;
 
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiConfiguration;
 import com.github.mbarberot.java.jsonapi.core.process.JsonApiProcessException;
+import com.github.mbarberot.java.jsonapi.structure.document.DataDocument;
+import com.github.mbarberot.java.jsonapi.structure.document.Document;
 import com.github.mbarberot.java.jsonapi.structure.document.MultipleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.document.SingleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.resources.Attributes;
@@ -20,6 +22,7 @@ import static com.github.mbarberot.java.jsonapi.test.utils.AuthorHelper.newAutho
 import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.getBookConfig;
 import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.newBook;
 import static com.google.common.collect.Lists.newArrayList;
+import static com.google.common.collect.Sets.newHashSet;
 import static org.junit.Assert.assertEquals;
 
 public class JsonapiConverterTest {
@@ -46,7 +49,13 @@ public class JsonapiConverterTest {
                                                 .add("author", new Relationship(new Resource("someauthorid", "author")))
 
                                 )
-                ),
+                ).setIncluded(newArrayList(
+                        new Resource("someauthorid", "author")
+                                .setAttributes(new Attributes()
+                                        .add("firstname", "jon")
+                                        .add("lastname", "doe")
+                                )
+                )),
                 new JsonApiConverter(config).convertEntity(entity)
         );
     }
@@ -93,7 +102,7 @@ public class JsonapiConverterTest {
                                 .setRelationships(
                                         new Relationships()
                                                 .add("author", new Relationship(new Resource("someauthorid", "author")))
-
+        
                                 ),
                         new Resource("someotherid", "book")
                                 .setAttributes(
@@ -105,9 +114,15 @@ public class JsonapiConverterTest {
                                 .setRelationships(
                                         new Relationships()
                                                 .add("author", new Relationship(new Resource("someauthorid", "author")))
-
+        
                                 )
-                ),
+                ).setIncluded(newHashSet(
+                        new Resource("someauthorid", "author")
+                                .setAttributes(new Attributes()
+                                        .add("firstname", "jon")
+                                        .add("lastname", "doe")
+                                )
+                )),
                 new JsonApiConverter(config).convertEntities(newArrayList(entityOne, entityTwo))
         );
     }
