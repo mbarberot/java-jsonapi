@@ -1,6 +1,7 @@
 package com.github.mbarberot.java.jsonapi.core;
 
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiConfiguration;
+import com.github.mbarberot.java.jsonapi.core.process.JsonApiProcessException;
 import com.github.mbarberot.java.jsonapi.structure.document.MultipleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.document.SingleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.resources.Attributes;
@@ -90,7 +91,7 @@ public class JsonapiConverterTest {
         );
     }
 
-    @Test(expected = EntityConfigurationNotFoundException.class)
+    @Test(expected = JsonApiProcessException.class)
     public void noConfigFound() throws Exception {
         new JsonApiConverter(
                 newConfiguration().entityConfigurations(newArrayList()).build()

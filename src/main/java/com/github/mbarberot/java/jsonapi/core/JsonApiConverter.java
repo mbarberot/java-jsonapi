@@ -5,6 +5,7 @@ import com.github.mbarberot.java.jsonapi.core.introspection.EntityWrapperFactory
 import com.github.mbarberot.java.jsonapi.core.introspection.JsonApiIntrospectionException;
 import com.github.mbarberot.java.jsonapi.core.process.JsonApiBuilder;
 import com.github.mbarberot.java.jsonapi.core.process.JsonApiProcess;
+import com.github.mbarberot.java.jsonapi.core.process.JsonApiProcessException;
 import com.github.mbarberot.java.jsonapi.structure.document.Document;
 import com.github.mbarberot.java.jsonapi.structure.document.MultipleDataDocument;
 import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
@@ -20,15 +21,11 @@ public class JsonApiConverter {
         this.configuration = configuration;
     }
 
-    public Document convertEntity(Object entity) throws EntityConfigurationNotFoundException, JsonApiIntrospectionException {
-        EntityWrapperFactory factory = new EntityWrapperFactory(configuration);
-        JsonApiProcess visitor = new JsonApiBuilder(factory);
-        return visitor.processOne(entity);
+    public Document convertEntity(Object entity) throws JsonApiProcessException {
+        return new JsonApiBuilder(new EntityWrapperFactory(configuration)).processOne(entity);
     }
 
-    public Document convertEntities(Object... entities) throws EntityConfigurationNotFoundException, JsonApiIntrospectionException {
-        EntityWrapperFactory factory = new EntityWrapperFactory(configuration);
-        JsonApiProcess visitor = new JsonApiBuilder(factory);
-        return visitor.processMultiple(asList(entities));
+    public Document convertEntities(Object... entities) throws JsonApiProcessException {
+        return new JsonApiBuilder(new EntityWrapperFactory(configuration)).processMultiple(asList(entities));
     }
 }

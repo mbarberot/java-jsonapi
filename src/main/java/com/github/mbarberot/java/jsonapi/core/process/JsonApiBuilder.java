@@ -21,40 +21,40 @@ import java.util.Map.Entry;
 public class JsonApiBuilder implements JsonApiProcess {
     private EntityWrapperFactory factory;
 
-    public JsonApiBuilder(EntityWrapperFactory factory) throws EntityConfigurationNotFoundException {
+    public JsonApiBuilder(EntityWrapperFactory factory) {
         this.factory = factory;
     }
 
     @Override
-    public DataDocument processOne(Object entity) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
-        EntityWrapper wrapper = factory.createEntityWrapper(entity);
-        return new SingleDataDocument(
-                new Resource(
-                        wrapper.getId(),
-                        wrapper.getType()
-                ).setAttributes(new Attributes().addAll(
-                        wrapper.getAttributes()
-                )).setRelationships(
-                        processRelationships(wrapper)
-                )
-        );
+    public DataDocument processOne(Object entity) throws JsonApiProcessException {
+        return new SingleDataDocument(processEntity(entity));
     }
 
     @Override
-    public DataDocument processMultiple(List<Object> entities) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
+    public DataDocument processMultiple(List<Object> entities) throws JsonApiProcessException {
         List<Resource> resources = new ArrayList<>();
         for (Object entity : entities) {
+            resources.add(processEntity(entity));
+        }
+        return new MultipleDataDocument(resources);
+    }
+
+    private Resource processEntity(Object entity) throws JsonApiProcessException {
+        Resource resource;
+        try {
             EntityWrapper wrapper = factory.createEntityWrapper(entity);
-            resources.add(new Resource(
+            resource = new Resource(
                     wrapper.getId(),
                     wrapper.getType()
             ).setAttributes(new Attributes().addAll(
                     wrapper.getAttributes()
             )).setRelationships(
                     processRelationships(wrapper)
-            ));
+            );
+        } catch (JsonApiIntrospectionException | EntityConfigurationNotFoundException e) {
+            throw new JsonApiProcessException("Failed to convert entity " + entity, e);
         }
-        return new MultipleDataDocument(resources);
+        return resource;
     }
 
     private Relationships processRelationships(EntityWrapper wrapper) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
