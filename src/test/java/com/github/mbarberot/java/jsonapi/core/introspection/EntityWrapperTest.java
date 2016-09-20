@@ -1,5 +1,6 @@
 package com.github.mbarberot.java.jsonapi.core.introspection;
 
+import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration;
 import com.github.mbarberot.java.jsonapi.test.utils.Author;
 import com.github.mbarberot.java.jsonapi.test.utils.Book;
 import org.junit.Before;
@@ -7,12 +8,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField.field;
+import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship.relationship;
+import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
 import static com.github.mbarberot.java.jsonapi.test.utils.AuthorHelper.newAuthor;
 import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.getBookConfig;
 import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.newBook;
 import static com.google.common.collect.ImmutableMap.of;
+import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;
+import static java.lang.String.format;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EntityWrapperTest {
@@ -23,13 +30,7 @@ public class EntityWrapperTest {
     @Before
     public void setUp() throws Exception {
         author = newAuthor("someauthorid", "jon", "doe");
-        book = newBook(
-                "someid",
-                "someisbn",
-                200,
-                1454281200000L,
-                author
-        );
+        book = newBook("someid", "someisbn", 200, 1454281200000L, author);
     }
 
     @Test
@@ -54,10 +55,29 @@ public class EntityWrapperTest {
     }
 
     @Test
+    public void getAttributes_Null() throws Exception {
+        assertNull(new EntityWrapper(getLiteBookConfig(), book).getAttributes());
+    }
+    
+    @Test
     public void getRelationships() throws Exception {
         assertEquals(
                 newHashMap(of("author", author)),
                 new EntityWrapper(getBookConfig(), book).getRelationships()
         );
+    }
+
+    @Test
+    public void getRelationships_Null() throws Exception {
+        assertNull(new EntityWrapper(getLiteBookConfig(), book).getRelationships());
+    }
+
+
+    private JsonApiEntityConfiguration getLiteBookConfig() {
+        return newEntityConfiguration()
+                .entityClass(Book.class)
+                .idField(field("id"))
+                .type("book")
+                .build();
     }
 }

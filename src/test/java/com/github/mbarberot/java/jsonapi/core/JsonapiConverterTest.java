@@ -10,10 +10,11 @@ import com.github.mbarberot.java.jsonapi.structure.resources.Relationships;
 import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 import com.github.mbarberot.java.jsonapi.test.utils.Author;
 import com.github.mbarberot.java.jsonapi.test.utils.Book;
-import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
 import org.junit.Test;
 
+import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField.field;
 import static com.github.mbarberot.java.jsonapi.configuration.JsonApiConfiguration.newConfiguration;
+import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
 import static com.github.mbarberot.java.jsonapi.test.utils.AuthorHelper.getAuthorConfig;
 import static com.github.mbarberot.java.jsonapi.test.utils.AuthorHelper.newAuthor;
 import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.getBookConfig;
@@ -47,6 +48,26 @@ public class JsonapiConverterTest {
                                 )
                 ),
                 new JsonApiConverter(config).convertEntity(entity)
+        );
+    }
+
+    @Test
+    public void convertSingle_NoAttributesOrRelationships() throws Exception {
+        Author author = newAuthor("someauthorid", "jon", "doe");
+
+        JsonApiConfiguration config = newConfiguration()
+                .entityConfigurations(
+                        newArrayList(newEntityConfiguration()
+                                .entityClass(Author.class)
+                                .idField(field("id"))
+                                .type("author")
+                                .build())).build();
+
+        assertEquals(
+                new SingleDataDocument(
+                        new Resource("someauthorid", "author")
+                ),
+                new JsonApiConverter(config).convertEntity(author)
         );
     }
 

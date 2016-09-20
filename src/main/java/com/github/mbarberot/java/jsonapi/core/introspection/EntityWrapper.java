@@ -8,6 +8,7 @@ import com.github.mbarberot.java.jsonapi.core.converters.Converter;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EntityWrapper {
@@ -30,16 +31,25 @@ public class EntityWrapper {
     }
 
     public Map<String, Object> getAttributes() throws JsonApiIntrospectionException {
+        List<EntityConfigurationField> fields = configuration.getAttributeFields();
+        if (fields == null) {
+            return null;
+        }
         Map<String, Object> attributesMap = new HashMap<>();
-        for (EntityConfigurationField fieldConfig : configuration.getAttributeFields()) {
+        for (EntityConfigurationField fieldConfig : fields) {
             attributesMap.put(fieldConfig.getFieldName(), get(fieldConfig));
         }
         return attributesMap;
     }
 
     public Map<String, Object> getRelationships() throws JsonApiIntrospectionException {
+        List<EntityConfigurationRelationship> fields = configuration.getRelationshipFields();
+        if (fields == null) {
+            return null;
+        }
+        
         Map<String, Object> relationships = new HashMap<>();
-        for (EntityConfigurationRelationship relationConfig : configuration.getRelationshipFields()) {
+        for (EntityConfigurationRelationship relationConfig : fields) {
             relationships.put(
                     relationConfig.getFieldName(),
                     getRawValue(relationConfig)

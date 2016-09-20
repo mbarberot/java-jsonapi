@@ -43,24 +43,25 @@ public class JsonApiBuilder implements JsonApiProcess {
         Resource resource;
         try {
             EntityWrapper wrapper = factory.createEntityWrapper(entity);
-            resource = new Resource(
-                    wrapper.getId(),
-                    wrapper.getType()
-            ).setAttributes(new Attributes().addAll(
-                    wrapper.getAttributes()
-            )).setRelationships(
-                    processRelationships(wrapper)
-            );
+            resource = new Resource(wrapper.getId(), wrapper.getType())
+                    .setAttributes(processAttributes(wrapper.getAttributes()))
+                    .setRelationships(processRelationships(wrapper.getRelationships()));
         } catch (JsonApiIntrospectionException | EntityConfigurationNotFoundException e) {
             throw new JsonApiProcessException("Failed to convert entity " + entity, e);
         }
         return resource;
     }
 
-    private Relationships processRelationships(EntityWrapper wrapper) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
-        Map<String, Object> relations = wrapper.getRelationships();
-        Relationships relationships = new Relationships();
+    private Attributes processAttributes(Map<String, Object> attributes) throws JsonApiIntrospectionException {
+        return attributes != null ? new Attributes().addAll(attributes) : null;
+    }
 
+    private Relationships processRelationships(Map<String, Object> relations) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
+        if (relations == null) {
+            return null;
+        }
+
+        Relationships relationships = new Relationships();
         for (Entry<String, Object> relation : relations.entrySet()) {
             EntityWrapper relatedWrapper = factory.createEntityWrapper(relation.getValue());
             relationships.add(
