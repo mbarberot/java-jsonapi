@@ -4,6 +4,7 @@ plugins {
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
+apply plugin: 'maven'
 
 group = 'com.github.mbarberot'
 version = '1.0-SNAPSHOT'
