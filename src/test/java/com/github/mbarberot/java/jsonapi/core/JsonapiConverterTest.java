@@ -108,7 +108,7 @@ public class JsonapiConverterTest {
 
                                 )
                 ),
-                new JsonApiConverter(config).convertEntities(entityOne, entityTwo)
+                new JsonApiConverter(config).convertEntities(newArrayList(entityOne, entityTwo))
         );
     }
 

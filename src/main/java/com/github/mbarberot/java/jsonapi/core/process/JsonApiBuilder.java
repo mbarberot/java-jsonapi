@@ -14,6 +14,7 @@ import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -31,7 +32,7 @@ public class JsonApiBuilder implements JsonApiProcess {
     }
 
     @Override
-    public DataDocument processMultiple(List<Object> entities) throws JsonApiProcessException {
+    public DataDocument processMultiple(Collection<?> entities) throws JsonApiProcessException {
         List<Resource> resources = new ArrayList<>();
         for (Object entity : entities) {
             resources.add(processEntity(entity));
