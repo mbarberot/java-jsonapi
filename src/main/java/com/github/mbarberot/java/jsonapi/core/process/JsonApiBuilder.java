@@ -5,6 +5,7 @@ import com.github.mbarberot.java.jsonapi.core.introspection.EntityWrapper;
 import com.github.mbarberot.java.jsonapi.core.introspection.EntityWrapperFactory;
 import com.github.mbarberot.java.jsonapi.core.introspection.JsonApiIntrospectionException;
 import com.github.mbarberot.java.jsonapi.structure.document.DataDocument;
+import com.github.mbarberot.java.jsonapi.structure.document.MultipleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.document.SingleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.resources.Attributes;
 import com.github.mbarberot.java.jsonapi.structure.resources.Relationship;
@@ -12,20 +13,21 @@ import com.github.mbarberot.java.jsonapi.structure.resources.Relationships;
 import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
 import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class JsonApiBuilder implements JsonApiProcess {
     private EntityWrapperFactory factory;
-    private EntityWrapper wrapper;
 
-    public JsonApiBuilder(Object entity, EntityWrapperFactory factory) throws EntityConfigurationNotFoundException {
+    public JsonApiBuilder(EntityWrapperFactory factory) throws EntityConfigurationNotFoundException {
         this.factory = factory;
-        this.wrapper = factory.createEntityWrapper(entity);
     }
 
     @Override
-    public DataDocument process() throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
+    public DataDocument processOne(Object entity) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
+        EntityWrapper wrapper = factory.createEntityWrapper(entity);
         return new SingleDataDocument(
                 new Resource(
                         wrapper.getId(),
@@ -33,12 +35,29 @@ public class JsonApiBuilder implements JsonApiProcess {
                 ).setAttributes(new Attributes().addAll(
                         wrapper.getAttributes()
                 )).setRelationships(
-                        processRelationships()
+                        processRelationships(wrapper)
                 )
         );
     }
 
-    private Relationships processRelationships() throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
+    @Override
+    public DataDocument processMultiple(List<Object> entities) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
+        List<Resource> resources = new ArrayList<>();
+        for (Object entity : entities) {
+            EntityWrapper wrapper = factory.createEntityWrapper(entity);
+            resources.add(new Resource(
+                    wrapper.getId(),
+                    wrapper.getType()
+            ).setAttributes(new Attributes().addAll(
+                    wrapper.getAttributes()
+            )).setRelationships(
+                    processRelationships(wrapper)
+            ));
+        }
+        return new MultipleDataDocument(resources);
+    }
+
+    private Relationships processRelationships(EntityWrapper wrapper) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException {
         Map<String, Object> relations = wrapper.getRelationships();
         Relationships relationships = new Relationships();
 

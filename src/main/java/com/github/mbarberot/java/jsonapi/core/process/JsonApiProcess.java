@@ -4,6 +4,9 @@ import com.github.mbarberot.java.jsonapi.core.introspection.JsonApiIntrospection
 import com.github.mbarberot.java.jsonapi.structure.document.DataDocument;
 import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
 
+import java.util.List;
+
 public interface JsonApiProcess {
-    DataDocument process() throws JsonApiIntrospectionException, EntityConfigurationNotFoundException;
+    DataDocument processOne(Object entity) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException;
+    DataDocument processMultiple(List<Object> entity) throws JsonApiIntrospectionException, EntityConfigurationNotFoundException;
 }
