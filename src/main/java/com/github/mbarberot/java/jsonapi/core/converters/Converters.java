@@ -8,4 +8,8 @@ public class Converters {
     public static Converter defaultConverter() {
         return new DefaultConverter();
     }
+    
+    public static Converter dateConverter() {
+        return new DateConverter();
+    }
 }
