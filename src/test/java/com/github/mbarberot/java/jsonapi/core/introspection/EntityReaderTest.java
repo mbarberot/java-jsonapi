@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EntityWrapperTest {
+public class EntityReaderTest {
 
     private Book book;
     private Author author;
@@ -35,12 +35,12 @@ public class EntityWrapperTest {
 
     @Test
     public void getId() throws Exception {
-        assertEquals("someid", new EntityWrapper(getBookConfig(), book).getId());
+        assertEquals("someid", new EntityReader(getBookConfig(), book).getId());
     }
 
     @Test
     public void getType() throws Exception {
-        assertEquals("book", new EntityWrapper(getBookConfig(), book).getType());
+        assertEquals("book", new EntityReader(getBookConfig(), book).getType());
     }
 
     @Test
@@ -51,25 +51,25 @@ public class EntityWrapperTest {
                         "isbn", "someisbn",
                         "publication", "1454281200000"
                 )),
-                new EntityWrapper(getBookConfig(), book).getAttributes());
+                new EntityReader(getBookConfig(), book).getAttributes());
     }
 
     @Test
     public void getAttributes_Null() throws Exception {
-        assertNull(new EntityWrapper(getLiteBookConfig(), book).getAttributes());
+        assertNull(new EntityReader(getLiteBookConfig(), book).getAttributes());
     }
     
     @Test
     public void getRelationships() throws Exception {
         assertEquals(
                 newHashMap(of("author", author)),
-                new EntityWrapper(getBookConfig(), book).getRelationships()
+                new EntityReader(getBookConfig(), book).getRelationships()
         );
     }
 
     @Test
     public void getRelationships_Null() throws Exception {
-        assertNull(new EntityWrapper(getLiteBookConfig(), book).getRelationships());
+        assertNull(new EntityReader(getLiteBookConfig(), book).getRelationships());
     }
 
 

@@ -1,7 +1,7 @@
 package com.github.mbarberot.java.jsonapi.core.process;
 
 
-import com.github.mbarberot.java.jsonapi.core.introspection.EntityWrapper;
+import com.github.mbarberot.java.jsonapi.core.introspection.EntityReader;
 import com.github.mbarberot.java.jsonapi.core.introspection.EntityWrapperFactory;
 import com.github.mbarberot.java.jsonapi.core.introspection.JsonApiIntrospectionException;
 import com.github.mbarberot.java.jsonapi.structure.document.DataDocument;
@@ -46,7 +46,7 @@ public class JsonApiBuilder implements JsonApiProcess {
     private Resource processEntity(Object entity) throws JsonApiProcessException {
         Resource resource;
         try {
-            EntityWrapper wrapper = factory.createEntityWrapper(entity);
+            EntityReader wrapper = factory.createEntityReader(entity);
             resource = new Resource(wrapper.getId(), wrapper.getType())
                     .setAttributes(processAttributes(wrapper.getAttributes()))
                     .setRelationships(processRelationships(wrapper.getRelationships()));
@@ -67,7 +67,7 @@ public class JsonApiBuilder implements JsonApiProcess {
         try {
             Relationships relationships = new Relationships();
             for (Entry<String, Object> relation : relations.entrySet()) {
-                EntityWrapper relatedWrapper = factory.createEntityWrapper(relation.getValue());
+                EntityReader relatedWrapper = factory.createEntityReader(relation.getValue());
                 relationships.add(
                         relation.getKey(),
                         new Relationship(new Resource(
@@ -85,7 +85,7 @@ public class JsonApiBuilder implements JsonApiProcess {
 
     private List<Resource> processIncluded(Object entity) throws JsonApiProcessException {
         try {
-            EntityWrapper wrapper = factory.createEntityWrapper(entity);
+            EntityReader wrapper = factory.createEntityReader(entity);
             Map<String, Object> relations = wrapper.getRelationships();
 
             if (relations == null) {

@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class EntityWrapper {
+public class EntityReader {
     private final JsonApiEntityConfiguration configuration;
     private final Object entity;
     private final Class klass;
 
-    public EntityWrapper(JsonApiEntityConfiguration configuration, Object entity) {
+    public EntityReader(JsonApiEntityConfiguration configuration, Object entity) {
         this.configuration = configuration;
         this.entity = entity;
         this.klass = configuration.getEntityClass();

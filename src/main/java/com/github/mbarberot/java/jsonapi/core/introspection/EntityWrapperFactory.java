@@ -10,8 +10,8 @@ public class EntityWrapperFactory {
         this.configuration = configuration;
     }
 
-    public EntityWrapper createEntityWrapper(Object entity) throws EntityConfigurationNotFoundException {
-        return new EntityWrapper(
+    public EntityReader createEntityReader(Object entity) throws EntityConfigurationNotFoundException {
+        return new EntityReader(
                 configuration.getEntityConfiguration(entity.getClass()),
                 entity
         );
