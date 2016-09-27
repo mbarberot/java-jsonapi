@@ -24,12 +24,12 @@ public class EntityWriter<T> {
         set(configuration.getIdField(), id);
     }
 
-    public void setAttributes(Map<String, Object> attributes) throws JsonApiIntrospectionException {
+    public void setAttributes(Map<String, String> attributes) throws JsonApiIntrospectionException {
         if (attributes == null || attributes.isEmpty()) {
             return;
         }
 
-        for (Map.Entry<String, Object> attribute : attributes.entrySet()) {
+        for (Map.Entry<String, String> attribute : attributes.entrySet()) {
             Optional<EntityConfigurationField> fieldConfig = configuration.getAttributeFields()
                     .stream()
                     .filter(field -> Objects.equals(field.getFieldName(), attribute.getKey()))
@@ -58,8 +58,9 @@ public class EntityWriter<T> {
         }
     }
 
-    private void set(EntityConfigurationField fieldConfig, Object value) throws JsonApiIntrospectionException {
-        setRawValue(fieldConfig, value); // TODO handle converters
+    private void set(EntityConfigurationField fieldConfig, String value) throws JsonApiIntrospectionException {
+        Converter converter = fieldConfig.getConverter();
+        setRawValue(fieldConfig, converter.toEntity(value));
     }
 
     private void setRawValue(EntityConfigurationPart partConfig, Object value) throws JsonApiIntrospectionException {

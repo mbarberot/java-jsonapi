@@ -40,13 +40,13 @@ public class EntityWriterTest {
         // TODO test non string attributes
         entityWriter.setAttributes(newHashMap(of(
 //                "pages", "200",
-//                "publication", "1454281200000",
+                "publication", "1454281200000",
                 "isbn", "someisbn"
         )));
 
         Book expected = new Book();
 //        expected.setPages(200);
-//        expected.setPublication(new Date(1454281200000L));
+        expected.setPublication(new Date(1454281200000L));
         expected.setIsbn("someisbn");
 
         assertEquals(expected, entityWriter.getEntity());
