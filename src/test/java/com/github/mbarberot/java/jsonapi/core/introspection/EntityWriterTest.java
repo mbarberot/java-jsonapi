@@ -37,15 +37,14 @@ public class EntityWriterTest {
 
     @Test
     public void getAttributes() throws Exception {
-        // TODO test non string attributes
         entityWriter.setAttributes(newHashMap(of(
-//                "pages", "200",
+                "pages", "200",
                 "publication", "1454281200000",
                 "isbn", "someisbn"
         )));
 
         Book expected = new Book();
-//        expected.setPages(200);
+        expected.setPages(200);
         expected.setPublication(new Date(1454281200000L));
         expected.setIsbn("someisbn");
 

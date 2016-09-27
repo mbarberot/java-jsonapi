@@ -12,4 +12,8 @@ public class Converters {
     public static Converter dateConverter() {
         return new DateConverter();
     }
+
+    public static Converter integerConverter() {
+        return new IntegerConverter();
+    }
 }

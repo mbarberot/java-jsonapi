@@ -10,6 +10,7 @@ import static com.github.mbarberot.java.jsonapi.configuration.EntityConfiguratio
 import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship.relationship;
 import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
 import static com.github.mbarberot.java.jsonapi.core.converters.Converters.dateConverter;
+import static com.github.mbarberot.java.jsonapi.core.converters.Converters.integerConverter;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.String.format;
 
@@ -20,7 +21,7 @@ public class BookHelper {
                 .idField(field("id"))
                 .attributeFields(newArrayList(
                         field("isbn"),
-                        field("pages"),
+                        field("pages").withConverter(integerConverter()),
                         field("publication").withConverter(dateConverter())
                 ))
                 .relationshipFields(newArrayList(
