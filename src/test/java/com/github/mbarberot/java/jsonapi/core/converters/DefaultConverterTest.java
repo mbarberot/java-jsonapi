@@ -24,4 +24,14 @@ public class DefaultConverterTest {
         assertEquals("null", converter.toJsonApi(null));
     }
 
+    @Test
+    public void toEntity() throws Exception {
+        assertEquals("foo", converter.toEntity("foo"));
+        assertEquals("15", converter.toEntity("15"));
+        assertEquals("15.0", converter.toEntity("15.0"));
+        assertEquals("true", converter.toEntity("true"));
+        assertEquals("null", converter.toEntity("null"));
+        assertEquals(null, converter.toEntity(null));
+    }
+
 }

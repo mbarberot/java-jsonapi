@@ -5,4 +5,9 @@ public class DefaultConverter implements Converter {
     public String toJsonApi(Object value) {
         return value != null ? value.toString() : "null";
     }
+
+    @Override
+    public Object toEntity(String value) {
+        return value;
+    }
 }

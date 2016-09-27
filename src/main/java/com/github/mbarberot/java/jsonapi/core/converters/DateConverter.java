@@ -11,4 +11,13 @@ public class DateConverter extends DefaultConverter {
             return super.toJsonApi(value);
         }
     }
+
+    @Override
+    public Object toEntity(String value) {
+        try {
+            return new Date(Long.valueOf(value));
+        } catch (NumberFormatException e) {
+            return super.toEntity(value);
+        }
+    }
 }
