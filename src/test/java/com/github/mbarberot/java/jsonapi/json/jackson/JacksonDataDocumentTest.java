@@ -51,7 +51,7 @@ public class JacksonDataDocumentTest extends JacksonTest {
     }
 
     @Test
-    public void serializeMultipleData() throws Exception {
+    public void testMultipleData() throws Exception {
         String json = "" +
                 "{" +
                 "  \"data\" : [{" +
