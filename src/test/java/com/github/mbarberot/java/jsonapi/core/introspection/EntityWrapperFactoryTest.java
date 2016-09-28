@@ -30,6 +30,8 @@ public class EntityWrapperFactoryTest {
         factory = new EntityWrapperFactory(config);
         entity = new Book();
         doReturn(entityConfig).when(config).getEntityConfiguration(Book.class);
+        doReturn(entityConfig).when(config).getEntityConfiguration("book");
+        doReturn(Book.class).when(entityConfig).getEntityClass();
     }
 
     @Test
@@ -37,6 +39,14 @@ public class EntityWrapperFactoryTest {
         assertEquals(
                 new EntityReader(entityConfig, entity), 
                 factory.createEntityReader(entity)
+        );
+    }
+
+    @Test
+    public void createEntityWriter() throws Exception {
+        assertEquals(
+                new EntityWriter<>(entityConfig, new Book()),
+                factory.createEntityWriter("book")
         );
     }
 }

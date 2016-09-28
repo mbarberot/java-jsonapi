@@ -25,6 +25,10 @@ public class EntityWriter<T> {
         this.entityClass = configuration.getEntityClass();
     }
 
+    public T getEntity() {
+        return entity;
+    }
+
     public void setId(String id) throws JsonApiIntrospectionException {
         set(configuration.getIdField(), id);
     }
@@ -96,7 +100,25 @@ public class EntityWriter<T> {
         }
     }
 
-    public T getEntity() {
-        return entity;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EntityWriter<?> that = (EntityWriter<?>) o;
+
+        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
+            return false;
+        if (entity != null ? !entity.equals(that.entity) : that.entity != null) return false;
+        return entityClass != null ? entityClass.equals(that.entityClass) : that.entityClass == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = configuration != null ? configuration.hashCode() : 0;
+        result = 31 * result + (entity != null ? entity.hashCode() : 0);
+        result = 31 * result + (entityClass != null ? entityClass.hashCode() : 0);
+        return result;
     }
 }
