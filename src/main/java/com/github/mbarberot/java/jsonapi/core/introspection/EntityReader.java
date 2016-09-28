@@ -14,12 +14,12 @@ import java.util.Map;
 public class EntityReader {
     private final JsonApiEntityConfiguration configuration;
     private final Object entity;
-    private final Class klass;
+    private final Class entityClass;
 
     public EntityReader(JsonApiEntityConfiguration configuration, Object entity) {
         this.configuration = configuration;
         this.entity = entity;
-        this.klass = configuration.getEntityClass();
+        this.entityClass = configuration.getEntityClass();
     }
 
     public String getType() {
@@ -65,11 +65,33 @@ public class EntityReader {
 
     private Object getRawValue(EntityConfigurationPart partConfig) throws JsonApiIntrospectionException {
         try {
-            Field field = klass.getDeclaredField(partConfig.getFieldName());
+            Field field = entityClass.getDeclaredField(partConfig.getFieldName());
             field.setAccessible(true);
             return field.get(entity);
         } catch (IllegalAccessException | NoSuchFieldException e) {
             throw new JsonApiIntrospectionException(e);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EntityReader that = (EntityReader) o;
+
+        if (configuration != null ? !configuration.equals(that.configuration) : that.configuration != null)
+            return false;
+        if (entity != null ? !entity.equals(that.entity) : that.entity != null) return false;
+        return entityClass != null ? entityClass.equals(that.entityClass) : that.entityClass == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = configuration != null ? configuration.hashCode() : 0;
+        result = 31 * result + (entity != null ? entity.hashCode() : 0);
+        result = 31 * result + (entityClass != null ? entityClass.hashCode() : 0);
+        return result;
     }
 }
