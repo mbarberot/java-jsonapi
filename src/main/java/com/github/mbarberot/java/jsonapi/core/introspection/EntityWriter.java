@@ -7,7 +7,12 @@ import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguratio
 import com.github.mbarberot.java.jsonapi.core.converters.Converter;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+
+import static java.util.Optional.empty;
 
 public class EntityWriter<T> {
     private final JsonApiEntityConfiguration configuration;
@@ -30,13 +35,12 @@ public class EntityWriter<T> {
         }
 
         for (Map.Entry<String, String> attribute : attributes.entrySet()) {
-            Optional<EntityConfigurationField> fieldConfig = configuration.getAttributeFields()
-                    .stream()
-                    .filter(field -> Objects.equals(field.getFieldName(), attribute.getKey()))
-                    .findFirst();
-            
-            if(fieldConfig.isPresent()){
+            Optional<EntityConfigurationField> fieldConfig = getEntityConfigurationField(configuration.getAttributeFields(), attribute.getKey());
+
+            if (fieldConfig.isPresent()) {
                 set(fieldConfig.get(), attribute.getValue());
+            } else {
+                throw new JsonApiIntrospectionException("Attribute config not found : " + attribute.getKey());
             }
         }
     }
@@ -47,15 +51,34 @@ public class EntityWriter<T> {
         }
 
         for (Map.Entry<String, Object> relationship : relationships.entrySet()) {
-            Optional<EntityConfigurationRelationship> fieldConfig = configuration.getRelationshipFields()
-                    .stream()
-                    .filter(field -> Objects.equals(field.getFieldName(), relationship.getKey()))
-                    .findFirst();
+            String fieldName = relationship.getKey();
+            Object relEntity = relationship.getValue();
 
-            if(fieldConfig.isPresent()){
-                setRawValue(fieldConfig.get(), relationship.getValue());
+            Optional<EntityConfigurationRelationship> fieldConfig = getEntityConfigurationRelationship(configuration.getRelationshipFields(), fieldName);
+
+            if (fieldConfig.isPresent()) {
+                EntityConfigurationRelationship relConfig = fieldConfig.get();
+                setRawValue(relConfig, relEntity);
+            } else {
+                throw new JsonApiIntrospectionException("Relation configuration not found");
             }
         }
+    }
+
+    private Optional<EntityConfigurationField> getEntityConfigurationField(List<EntityConfigurationField> attributeFields, String fieldName) {
+        return (attributeFields == null) ? empty() :
+                attributeFields
+                        .stream()
+                        .filter(field -> Objects.equals(field.getFieldName(), fieldName))
+                        .findFirst();
+    }
+
+    private Optional<EntityConfigurationRelationship> getEntityConfigurationRelationship(List<EntityConfigurationRelationship> relationshipFields, String fieldName) {
+        return (relationshipFields == null) ? empty() : 
+                relationshipFields
+                .stream()
+                .filter(field -> Objects.equals(field.getFieldName(), fieldName))
+                .findFirst();
     }
 
     private void set(EntityConfigurationField fieldConfig, String value) throws JsonApiIntrospectionException {
