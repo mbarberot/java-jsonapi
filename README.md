@@ -24,6 +24,7 @@ I would liked to have a simple lib that just convert my entities into a middle f
 
 Look at : 
 
+- the Jitpack label on top of this README to add the lib to your favorite build system (mvn, gradle, ...)
 - the JsonapiConverterTest test class to see how to create and use a converter
 - the JacksonTest test class to see how to configure your mapper to work with Jackson
 - the BookHelper test utility to see an example of converter configuration in plain java
