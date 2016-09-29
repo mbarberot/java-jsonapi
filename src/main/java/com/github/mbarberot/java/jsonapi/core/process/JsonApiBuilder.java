@@ -56,7 +56,7 @@ public class JsonApiBuilder implements JsonApiProcess {
         return resource;
     }
 
-    private Attributes processAttributes(Map<String, Object> attributes) throws JsonApiIntrospectionException {
+    private Attributes processAttributes(Map<String, String> attributes) throws JsonApiIntrospectionException {
         return attributes != null ? new Attributes().addAll(attributes) : null;
     }
 

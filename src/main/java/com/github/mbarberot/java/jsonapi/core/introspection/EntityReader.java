@@ -30,12 +30,12 @@ public class EntityReader {
         return get(configuration.getIdField());
     }
 
-    public Map<String, Object> getAttributes() throws JsonApiIntrospectionException {
+    public Map<String, String> getAttributes() throws JsonApiIntrospectionException {
         List<EntityConfigurationField> fields = configuration.getAttributeFields();
         if (fields == null) {
             return null;
         }
-        Map<String, Object> attributesMap = new HashMap<>();
+        Map<String, String> attributesMap = new HashMap<>();
         for (EntityConfigurationField fieldConfig : fields) {
             attributesMap.put(fieldConfig.getFieldName(), get(fieldConfig));
         }
