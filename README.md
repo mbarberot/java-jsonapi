@@ -29,6 +29,10 @@ Look at :
 - the JacksonTest test class to see how to configure your mapper to work with Jackson
 - the BookHelper test utility to see an example of converter configuration in plain java
 
+## Documentation
+
+The javadoc is generated for the master branch only and is available [here](https://mbarberot.github.io/java-jsonapi/javadoc/).
+
 ## Roadmap
 
 ### v1
