@@ -35,6 +35,7 @@ Look at :
 
 - [x] Publish beta version
 - [ ] Improve the beta version and release a production version
+- [ ] Publish a Javadoc
 
 ### v2
 
