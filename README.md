@@ -28,3 +28,17 @@ Look at :
 - the JsonapiConverterTest test class to see how to create and use a converter
 - the JacksonTest test class to see how to configure your mapper to work with Jackson
 - the BookHelper test utility to see an example of converter configuration in plain java
+
+## Roadmap
+
+### v1
+
+[x] Publish beta version
+[] Improve the beta version and release a production version
+
+### v2
+
+[] Add possibility to use annotations to generate converter configuration
+[] Add possibility to use a yaml file to generate converter configuration
+[] Create a Github page for the project
+[] Communicate on the project (mainly try to add this lib to JSON API format website)
