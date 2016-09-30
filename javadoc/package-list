@@ -1,0 +1,12 @@
+com.github.mbarberot.java.jsonapi.configuration
+com.github.mbarberot.java.jsonapi.configuration.builders
+com.github.mbarberot.java.jsonapi.core
+com.github.mbarberot.java.jsonapi.core.converters
+com.github.mbarberot.java.jsonapi.core.introspection
+com.github.mbarberot.java.jsonapi.core.process
+com.github.mbarberot.java.jsonapi.structure
+com.github.mbarberot.java.jsonapi.structure.document
+com.github.mbarberot.java.jsonapi.structure.errors
+com.github.mbarberot.java.jsonapi.structure.links
+com.github.mbarberot.java.jsonapi.structure.resources
+com.github.mbarberot.java.jsonapi.utils
