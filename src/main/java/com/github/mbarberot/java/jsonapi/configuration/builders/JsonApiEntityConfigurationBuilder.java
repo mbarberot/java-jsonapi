@@ -1,10 +1,9 @@
 package com.github.mbarberot.java.jsonapi.configuration.builders;
 
-import com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField;
-import com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship;
+import com.github.mbarberot.java.jsonapi.configuration.ConfigurationField;
+import com.github.mbarberot.java.jsonapi.configuration.ConfigurationRelationship;
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class JsonApiEntityConfigurationBuilder {
@@ -20,12 +19,12 @@ public class JsonApiEntityConfigurationBuilder {
         return this;
     }
 
-    public JsonApiEntityConfigurationBuilder idField(EntityConfigurationField id) {
+    public JsonApiEntityConfigurationBuilder idField(ConfigurationField id) {
         config.setIdField(id);
         return this;
     }
 
-    public JsonApiEntityConfigurationBuilder attributeFields(List<EntityConfigurationField> attributes) {
+    public JsonApiEntityConfigurationBuilder attributeFields(List<ConfigurationField> attributes) {
         config.setAttributeFields(attributes);
         return this;
     }
@@ -35,7 +34,7 @@ public class JsonApiEntityConfigurationBuilder {
         return this;
     }
 
-    public JsonApiEntityConfigurationBuilder relationshipFields(List<EntityConfigurationRelationship> relationships) {
+    public JsonApiEntityConfigurationBuilder relationshipFields(List<ConfigurationRelationship> relationships) {
         config.setRelationshipFields(relationships);
         return this;
     }

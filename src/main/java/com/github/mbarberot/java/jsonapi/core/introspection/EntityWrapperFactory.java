@@ -2,7 +2,7 @@ package com.github.mbarberot.java.jsonapi.core.introspection;
 
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiConfiguration;
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration;
-import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
+import com.github.mbarberot.java.jsonapi.utils.ConfigurationNotFoundException;
 
 public class EntityWrapperFactory {
     private JsonApiConfiguration configuration;
@@ -11,14 +11,14 @@ public class EntityWrapperFactory {
         this.configuration = configuration;
     }
 
-    public EntityReader createEntityReader(Object entity) throws EntityConfigurationNotFoundException {
+    public EntityReader createEntityReader(Object entity) throws ConfigurationNotFoundException {
         return new EntityReader(
                 configuration.getEntityConfiguration(entity.getClass()),
                 entity
         );
     }
 
-    public EntityWriter<?> createEntityWriter(String type) throws EntityConfigurationNotFoundException, JsonApiIntrospectionException {
+    public EntityWriter<?> createEntityWriter(String type) throws ConfigurationNotFoundException, JsonApiIntrospectionException {
         JsonApiEntityConfiguration entityConfig = configuration.getEntityConfiguration(type);
         try {
             return new EntityWriter<>(entityConfig, entityConfig.getEntityClass().newInstance());

@@ -2,7 +2,7 @@ package com.github.mbarberot.java.jsonapi.test.utils;
 
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration;
 
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField.field;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationField.field;
 import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
 import static com.google.common.collect.Lists.newArrayList;
 

@@ -7,9 +7,9 @@ import java.util.List;
 public class JsonApiEntityConfiguration {
     private Class entityClass;
     private String type;
-    private EntityConfigurationField idField;
-    private List<EntityConfigurationField> attributeFields;
-    private List<EntityConfigurationRelationship> relationshipFields;
+    private ConfigurationField idField;
+    private List<ConfigurationField> attributeFields;
+    private List<ConfigurationRelationship> relationshipFields;
 
     public JsonApiEntityConfiguration() {
     }
@@ -30,27 +30,27 @@ public class JsonApiEntityConfiguration {
         this.type = type;
     }
 
-    public EntityConfigurationField getIdField() {
+    public ConfigurationField getIdField() {
         return idField;
     }
 
-    public void setIdField(EntityConfigurationField idField) {
+    public void setIdField(ConfigurationField idField) {
         this.idField = idField;
     }
 
-    public List<EntityConfigurationField> getAttributeFields() {
+    public List<ConfigurationField> getAttributeFields() {
         return attributeFields;
     }
 
-    public void setAttributeFields(List<EntityConfigurationField> attributeFields) {
+    public void setAttributeFields(List<ConfigurationField> attributeFields) {
         this.attributeFields = attributeFields;
     }
 
-    public List<EntityConfigurationRelationship> getRelationshipFields() {
+    public List<ConfigurationRelationship> getRelationshipFields() {
         return relationshipFields;
     }
 
-    public void setRelationshipFields(List<EntityConfigurationRelationship> relationshipFields) {
+    public void setRelationshipFields(List<ConfigurationRelationship> relationshipFields) {
         this.relationshipFields = relationshipFields;
     }
 

@@ -8,7 +8,7 @@ import com.github.mbarberot.java.jsonapi.structure.document.SingleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.resources.Relationship;
 import com.github.mbarberot.java.jsonapi.structure.resources.Relationships;
 import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
-import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
+import com.github.mbarberot.java.jsonapi.utils.ConfigurationNotFoundException;
 
 import java.util.*;
 
@@ -29,12 +29,12 @@ public class EntityApiBuilder {
                     dataDoc.getData(),
                     dataDoc.getIncluded()
             ).getEntity());
-        } catch (EntityConfigurationNotFoundException | JsonApiIntrospectionException e) {
+        } catch (ConfigurationNotFoundException | JsonApiIntrospectionException e) {
             throw new JsonApiProcessException("Failed to process document " + document, e);
         }
     }
 
-    private EntityWriter<?> processData(Resource data, Collection<Resource> included) throws EntityConfigurationNotFoundException, JsonApiIntrospectionException {
+    private EntityWriter<?> processData(Resource data, Collection<Resource> included) throws ConfigurationNotFoundException, JsonApiIntrospectionException {
         EntityWriter<?> writer = factory.createEntityWriter(data.getType());
         writer.setId(data.getId());
         writer.setAttributes(data.getAttributes());
@@ -42,7 +42,7 @@ public class EntityApiBuilder {
         return writer;
     }
 
-    private Map<String, Object> processRelationships(Relationships relationships, Collection<Resource> included) throws EntityConfigurationNotFoundException, JsonApiIntrospectionException {
+    private Map<String, Object> processRelationships(Relationships relationships, Collection<Resource> included) throws ConfigurationNotFoundException, JsonApiIntrospectionException {
         if (relationships == null) {
             return null;
         }

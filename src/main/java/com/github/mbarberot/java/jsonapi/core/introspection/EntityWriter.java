@@ -1,8 +1,8 @@
 package com.github.mbarberot.java.jsonapi.core.introspection;
 
-import com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField;
-import com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationPart;
-import com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship;
+import com.github.mbarberot.java.jsonapi.configuration.ConfigurationField;
+import com.github.mbarberot.java.jsonapi.configuration.ConfigurationPart;
+import com.github.mbarberot.java.jsonapi.configuration.ConfigurationRelationship;
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration;
 import com.github.mbarberot.java.jsonapi.core.converters.Converter;
 
@@ -39,7 +39,7 @@ public class EntityWriter<T> {
         }
 
         for (Map.Entry<String, String> attribute : attributes.entrySet()) {
-            Optional<EntityConfigurationField> fieldConfig = getEntityConfigurationField(configuration.getAttributeFields(), attribute.getKey());
+            Optional<ConfigurationField> fieldConfig = getEntityConfigurationField(configuration.getAttributeFields(), attribute.getKey());
 
             if (fieldConfig.isPresent()) {
                 set(fieldConfig.get(), attribute.getValue());
@@ -58,10 +58,10 @@ public class EntityWriter<T> {
             String fieldName = relationship.getKey();
             Object relEntity = relationship.getValue();
 
-            Optional<EntityConfigurationRelationship> fieldConfig = getEntityConfigurationRelationship(configuration.getRelationshipFields(), fieldName);
+            Optional<ConfigurationRelationship> fieldConfig = getEntityConfigurationRelationship(configuration.getRelationshipFields(), fieldName);
 
             if (fieldConfig.isPresent()) {
-                EntityConfigurationRelationship relConfig = fieldConfig.get();
+                ConfigurationRelationship relConfig = fieldConfig.get();
                 setRawValue(relConfig, relEntity);
             } else {
                 throw new JsonApiIntrospectionException("Relation configuration not found");
@@ -69,7 +69,7 @@ public class EntityWriter<T> {
         }
     }
 
-    private Optional<EntityConfigurationField> getEntityConfigurationField(List<EntityConfigurationField> attributeFields, String fieldName) {
+    private Optional<ConfigurationField> getEntityConfigurationField(List<ConfigurationField> attributeFields, String fieldName) {
         return (attributeFields == null) ? empty() :
                 attributeFields
                         .stream()
@@ -77,7 +77,7 @@ public class EntityWriter<T> {
                         .findFirst();
     }
 
-    private Optional<EntityConfigurationRelationship> getEntityConfigurationRelationship(List<EntityConfigurationRelationship> relationshipFields, String fieldName) {
+    private Optional<ConfigurationRelationship> getEntityConfigurationRelationship(List<ConfigurationRelationship> relationshipFields, String fieldName) {
         return (relationshipFields == null) ? empty() : 
                 relationshipFields
                 .stream()
@@ -85,12 +85,12 @@ public class EntityWriter<T> {
                 .findFirst();
     }
 
-    private void set(EntityConfigurationField fieldConfig, String value) throws JsonApiIntrospectionException {
+    private void set(ConfigurationField fieldConfig, String value) throws JsonApiIntrospectionException {
         Converter converter = fieldConfig.getConverter();
         setRawValue(fieldConfig, converter.toEntity(value));
     }
 
-    private void setRawValue(EntityConfigurationPart partConfig, Object value) throws JsonApiIntrospectionException {
+    private void setRawValue(ConfigurationPart partConfig, Object value) throws JsonApiIntrospectionException {
         try {
             Field field = entityClass.getDeclaredField(partConfig.getFieldName());
             field.setAccessible(true);

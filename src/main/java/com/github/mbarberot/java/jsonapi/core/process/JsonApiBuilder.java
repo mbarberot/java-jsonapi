@@ -11,7 +11,7 @@ import com.github.mbarberot.java.jsonapi.structure.resources.Attributes;
 import com.github.mbarberot.java.jsonapi.structure.resources.Relationship;
 import com.github.mbarberot.java.jsonapi.structure.resources.Relationships;
 import com.github.mbarberot.java.jsonapi.structure.resources.Resource;
-import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
+import com.github.mbarberot.java.jsonapi.utils.ConfigurationNotFoundException;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -50,7 +50,7 @@ public class JsonApiBuilder implements JsonApiProcess {
             resource = new Resource(wrapper.getId(), wrapper.getType())
                     .setAttributes(processAttributes(wrapper.getAttributes()))
                     .setRelationships(processRelationships(wrapper.getRelationships()));
-        } catch (JsonApiIntrospectionException | EntityConfigurationNotFoundException e) {
+        } catch (JsonApiIntrospectionException | ConfigurationNotFoundException e) {
             throw new JsonApiProcessException("Failed to convert entity " + entity, e);
         }
         return resource;
@@ -77,7 +77,7 @@ public class JsonApiBuilder implements JsonApiProcess {
                 );
             }
             return relationships;
-        } catch (JsonApiIntrospectionException | EntityConfigurationNotFoundException e) {
+        } catch (JsonApiIntrospectionException | ConfigurationNotFoundException e) {
             throw new JsonApiProcessException("Failed to process relationships", e);
         }
 
@@ -98,7 +98,7 @@ public class JsonApiBuilder implements JsonApiProcess {
             }
 
             return includedResources;
-        } catch (JsonApiIntrospectionException | EntityConfigurationNotFoundException e) {
+        } catch (JsonApiIntrospectionException | ConfigurationNotFoundException e) {
             throw new JsonApiProcessException("Failed to process included resources", e);
         }
     }

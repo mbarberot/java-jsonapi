@@ -1,12 +1,12 @@
 package com.github.mbarberot.java.jsonapi.configuration;
 
-public class EntityConfigurationPart {
+public class ConfigurationPart {
     protected String fieldName;
 
-    public EntityConfigurationPart() {
+    public ConfigurationPart() {
     }
 
-    public EntityConfigurationPart(String fieldName) {
+    public ConfigurationPart(String fieldName) {
         this.fieldName = fieldName;
     }
 
@@ -23,7 +23,7 @@ public class EntityConfigurationPart {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        EntityConfigurationPart that = (EntityConfigurationPart) o;
+        ConfigurationPart that = (ConfigurationPart) o;
 
         return fieldName != null ? fieldName.equals(that.fieldName) : that.fieldName == null;
 

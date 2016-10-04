@@ -1,31 +1,24 @@
 package com.github.mbarberot.java.jsonapi.configuration;
 
-import com.github.mbarberot.java.jsonapi.core.converters.Converter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class EntityConfigurationFieldTest {
+public class ConfigurationPartTest {
 
-    @Mock
-    private Converter converter;
-    @Mock
-    private Converter differentConverter;
-
-    private EntityConfigurationField x;
-    private EntityConfigurationField y;
-    private EntityConfigurationField z;
+    private ConfigurationPart x;
+    private ConfigurationPart y;
+    private ConfigurationPart z;
 
     @Before
     public void setUp() throws Exception {
-        x = new EntityConfigurationField("id", converter);
-        y = new EntityConfigurationField("id", converter);
-        z = new EntityConfigurationField("id", converter);
+        x = new ConfigurationPart("id");
+        y = new ConfigurationPart("id");
+        z = new ConfigurationPart("id");
     }
 
     @Test
@@ -61,9 +54,7 @@ public class EntityConfigurationFieldTest {
 
     @Test
     public void testEquals_differentAttributes() throws Exception {
-        assertFalse(x.equals(new EntityConfigurationField("id", differentConverter)));
-        assertFalse(x.equals(new EntityConfigurationField("foo", converter)));
-        assertFalse(x.equals(new EntityConfigurationField("foo", differentConverter)));
+        assertFalse(x.equals(new ConfigurationPart("foo")));
     }
 
     @Test
@@ -71,8 +62,8 @@ public class EntityConfigurationFieldTest {
         assertTrue(x.equals(y));
         assertTrue(x.equals(y));
         assertTrue(x.equals(y));
-        
-        EntityConfigurationField notX = new EntityConfigurationField("foo", differentConverter);
+
+        ConfigurationField notX = new ConfigurationField("foo");
         assertFalse(x.equals(notX));
         assertFalse(x.equals(notX));
         assertFalse(x.equals(notX));
@@ -93,8 +84,7 @@ public class EntityConfigurationFieldTest {
 
     @Test
     public void testHashCode_notEqualsObjects() throws Exception {
-        assertNotEquals(x.hashCode(), new EntityConfigurationField("id", differentConverter).hashCode());
-        assertNotEquals(x.hashCode(), new EntityConfigurationField("foo", converter).hashCode());
-        assertNotEquals(x.hashCode(), new EntityConfigurationField("foo", differentConverter).hashCode());
+        assertNotEquals(x.hashCode(), new ConfigurationField("id").hashCode());
     }
+
 }

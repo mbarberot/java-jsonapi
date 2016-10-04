@@ -19,11 +19,11 @@ public class JsonApiEntityConfigurationTest {
     private JsonApiEntityConfiguration z;
 
     @Mock
-    private EntityConfigurationField idField;
+    private ConfigurationField idField;
     @Mock
-    private EntityConfigurationField attributeField;
+    private ConfigurationField attributeField;
     @Mock
-    private EntityConfigurationRelationship relationField;
+    private ConfigurationRelationship relationField;
 
     @Before
     public void setUp() throws Exception {

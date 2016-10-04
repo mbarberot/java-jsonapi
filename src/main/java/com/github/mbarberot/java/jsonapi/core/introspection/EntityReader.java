@@ -1,8 +1,8 @@
 package com.github.mbarberot.java.jsonapi.core.introspection;
 
-import com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField;
-import com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationPart;
-import com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship;
+import com.github.mbarberot.java.jsonapi.configuration.ConfigurationField;
+import com.github.mbarberot.java.jsonapi.configuration.ConfigurationPart;
+import com.github.mbarberot.java.jsonapi.configuration.ConfigurationRelationship;
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration;
 import com.github.mbarberot.java.jsonapi.core.converters.Converter;
 
@@ -31,25 +31,25 @@ public class EntityReader {
     }
 
     public Map<String, String> getAttributes() throws JsonApiIntrospectionException {
-        List<EntityConfigurationField> fields = configuration.getAttributeFields();
+        List<ConfigurationField> fields = configuration.getAttributeFields();
         if (fields == null) {
             return null;
         }
         Map<String, String> attributesMap = new HashMap<>();
-        for (EntityConfigurationField fieldConfig : fields) {
+        for (ConfigurationField fieldConfig : fields) {
             attributesMap.put(fieldConfig.getFieldName(), get(fieldConfig));
         }
         return attributesMap;
     }
 
     public Map<String, Object> getRelationships() throws JsonApiIntrospectionException {
-        List<EntityConfigurationRelationship> fields = configuration.getRelationshipFields();
+        List<ConfigurationRelationship> fields = configuration.getRelationshipFields();
         if (fields == null) {
             return null;
         }
         
         Map<String, Object> relationships = new HashMap<>();
-        for (EntityConfigurationRelationship relationConfig : fields) {
+        for (ConfigurationRelationship relationConfig : fields) {
             relationships.put(
                     relationConfig.getFieldName(),
                     getRawValue(relationConfig)
@@ -58,12 +58,12 @@ public class EntityReader {
         return relationships;
     }
 
-    private String get(EntityConfigurationField fieldConfig) throws JsonApiIntrospectionException {
+    private String get(ConfigurationField fieldConfig) throws JsonApiIntrospectionException {
         Converter converter = fieldConfig.getConverter();
         return converter.toJsonApi(getRawValue(fieldConfig));
     }
 
-    private Object getRawValue(EntityConfigurationPart partConfig) throws JsonApiIntrospectionException {
+    private Object getRawValue(ConfigurationPart partConfig) throws JsonApiIntrospectionException {
         try {
             Field field = entityClass.getDeclaredField(partConfig.getFieldName());
             field.setAccessible(true);

@@ -6,15 +6,15 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class EntityConfigurationRelationshipTest {
-    private EntityConfigurationRelationship x;
-    private EntityConfigurationRelationship y;
-    private EntityConfigurationRelationship z;
+    private ConfigurationRelationship x;
+    private ConfigurationRelationship y;
+    private ConfigurationRelationship z;
 
     @Before
     public void setUp() throws Exception {
-        x = new EntityConfigurationRelationship("author", "author");
-        y = new EntityConfigurationRelationship("author", "author");
-        z = new EntityConfigurationRelationship("author", "author");
+        x = new ConfigurationRelationship("author", "author");
+        y = new ConfigurationRelationship("author", "author");
+        z = new ConfigurationRelationship("author", "author");
     }
 
     @Test
@@ -50,9 +50,9 @@ public class EntityConfigurationRelationshipTest {
 
     @Test
     public void testEquals_differentAttributes() throws Exception {
-        assertFalse(x.equals(new EntityConfigurationRelationship("foo", "author")));
-        assertFalse(x.equals(new EntityConfigurationRelationship("author", "foo")));
-        assertFalse(x.equals(new EntityConfigurationRelationship("foo", "foo")));
+        assertFalse(x.equals(new ConfigurationRelationship("foo", "author")));
+        assertFalse(x.equals(new ConfigurationRelationship("author", "foo")));
+        assertFalse(x.equals(new ConfigurationRelationship("foo", "foo")));
     }
 
     @Test
@@ -61,7 +61,7 @@ public class EntityConfigurationRelationshipTest {
         assertTrue(x.equals(y));
         assertTrue(x.equals(y));
 
-        EntityConfigurationRelationship notX = new EntityConfigurationRelationship("foo", "foo");
+        ConfigurationRelationship notX = new ConfigurationRelationship("foo", "foo");
         assertFalse(x.equals(notX));
         assertFalse(x.equals(notX));
         assertFalse(x.equals(notX));
@@ -82,8 +82,8 @@ public class EntityConfigurationRelationshipTest {
 
     @Test
     public void testHashCode_notEqualsObjects() throws Exception {
-        assertNotEquals(x.hashCode(), new EntityConfigurationRelationship("foo", "author").hashCode());
-        assertNotEquals(x.hashCode(), new EntityConfigurationRelationship("author", "foo").hashCode());
-        assertNotEquals(x.hashCode(), new EntityConfigurationRelationship("foo", "foo").hashCode());
+        assertNotEquals(x.hashCode(), new ConfigurationRelationship("foo", "author").hashCode());
+        assertNotEquals(x.hashCode(), new ConfigurationRelationship("author", "foo").hashCode());
+        assertNotEquals(x.hashCode(), new ConfigurationRelationship("foo", "foo").hashCode());
     }
 }

@@ -9,11 +9,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Date;
 
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField.field;
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship.relationship;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationField.field;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationRelationship.relationship;
 import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
 import static com.github.mbarberot.java.jsonapi.core.converters.Converters.dateConverter;
-import static com.github.mbarberot.java.jsonapi.core.converters.Converters.integerConverter;
 import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.getBookConfig;
 import static com.google.common.collect.ImmutableMap.of;
 import static com.google.common.collect.Lists.newArrayList;

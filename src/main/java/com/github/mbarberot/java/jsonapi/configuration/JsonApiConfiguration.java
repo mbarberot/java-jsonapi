@@ -1,7 +1,7 @@
 package com.github.mbarberot.java.jsonapi.configuration;
 
 import com.github.mbarberot.java.jsonapi.configuration.builders.JsonApiConfigurationBuilder;
-import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
+import com.github.mbarberot.java.jsonapi.utils.ConfigurationNotFoundException;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +16,7 @@ public class JsonApiConfiguration {
         return entityConfigurations;
     }
 
-    public JsonApiEntityConfiguration getEntityConfiguration(Class clazz) throws EntityConfigurationNotFoundException {
+    public JsonApiEntityConfiguration getEntityConfiguration(Class clazz) throws ConfigurationNotFoundException {
         Optional<JsonApiEntityConfiguration> config = entityConfigurations
                 .stream()
                 .filter(entityConfiguration -> entityConfiguration.getEntityClass() == clazz)
@@ -25,13 +25,13 @@ public class JsonApiConfiguration {
         if (config.isPresent()) {
             return config.get();
         } else {
-            throw new EntityConfigurationNotFoundException(
+            throw new ConfigurationNotFoundException(
                     format("Entity configuration not found for class %s", clazz.getName())
             );
         }
     }
 
-    public JsonApiEntityConfiguration getEntityConfiguration(String type) throws EntityConfigurationNotFoundException {
+    public JsonApiEntityConfiguration getEntityConfiguration(String type) throws ConfigurationNotFoundException {
         Optional<JsonApiEntityConfiguration> config = entityConfigurations
                 .stream()
                 .filter(entityConfiguration -> Objects.equals(entityConfiguration.getType(), type))
@@ -40,7 +40,7 @@ public class JsonApiConfiguration {
         if (config.isPresent()) {
             return config.get();
         } else {
-            throw new EntityConfigurationNotFoundException(
+            throw new ConfigurationNotFoundException(
                     format("Entity configuration not found for type %s", type)
             );
         }

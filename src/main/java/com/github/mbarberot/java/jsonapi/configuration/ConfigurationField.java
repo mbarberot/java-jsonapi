@@ -1,27 +1,26 @@
 package com.github.mbarberot.java.jsonapi.configuration;
 
 import com.github.mbarberot.java.jsonapi.core.converters.Converter;
-import com.github.mbarberot.java.jsonapi.core.converters.Converters;
 
 import static com.github.mbarberot.java.jsonapi.core.converters.Converters.defaultConverter;
 
-public class EntityConfigurationField extends EntityConfigurationPart {
+public class ConfigurationField extends ConfigurationPart {
     private Converter converter;
 
-    public static EntityConfigurationField field(String fieldName) {
-        return new EntityConfigurationField(fieldName);
+    public static ConfigurationField field(String fieldName) {
+        return new ConfigurationField(fieldName);
     }
     
-    public EntityConfigurationField(String fieldName) {
+    public ConfigurationField(String fieldName) {
         this(fieldName, defaultConverter());
     }
 
-    public EntityConfigurationField(String fieldName, Converter converter) {
+    public ConfigurationField(String fieldName, Converter converter) {
         super(fieldName);
         this.converter = converter;
     }
 
-    public EntityConfigurationField withConverter(Converter converter) {
+    public ConfigurationField withConverter(Converter converter) {
         this.converter = converter;
         return this;
     }
@@ -40,7 +39,7 @@ public class EntityConfigurationField extends EntityConfigurationPart {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
-        EntityConfigurationField that = (EntityConfigurationField) o;
+        ConfigurationField that = (ConfigurationField) o;
 
         return converter != null ? converter.equals(that.converter) : that.converter == null;
 

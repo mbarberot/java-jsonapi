@@ -2,7 +2,7 @@ package com.github.mbarberot.java.jsonapi.configuration;
 
 import com.github.mbarberot.java.jsonapi.test.utils.Author;
 import com.github.mbarberot.java.jsonapi.test.utils.Book;
-import com.github.mbarberot.java.jsonapi.utils.EntityConfigurationNotFoundException;
+import com.github.mbarberot.java.jsonapi.utils.ConfigurationNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -58,12 +58,12 @@ public class JsonApiConfigurationTest {
         assertEquals(configB, x.getEntityConfiguration("author"));
     }
 
-    @Test(expected = EntityConfigurationNotFoundException.class)
+    @Test(expected = ConfigurationNotFoundException.class)
     public void getEntityConfiguration_byType_notFound() throws Exception {
         x.getEntityConfiguration(Integer.class);
     }
 
-    @Test(expected = EntityConfigurationNotFoundException.class)
+    @Test(expected = ConfigurationNotFoundException.class)
     public void getEntityConfiguration_byName_notFound() throws Exception {
         x.getEntityConfiguration("int");
     }

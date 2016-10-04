@@ -13,7 +13,7 @@ import com.github.mbarberot.java.jsonapi.test.utils.Author;
 import com.github.mbarberot.java.jsonapi.test.utils.Book;
 import org.junit.Test;
 
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField.field;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationField.field;
 import static com.github.mbarberot.java.jsonapi.configuration.JsonApiConfiguration.newConfiguration;
 import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
 import static com.github.mbarberot.java.jsonapi.test.utils.AuthorHelper.getAuthorConfig;

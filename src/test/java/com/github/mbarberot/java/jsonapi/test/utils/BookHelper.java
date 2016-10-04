@@ -1,13 +1,11 @@
 package com.github.mbarberot.java.jsonapi.test.utils;
 
 import com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration;
-import com.github.mbarberot.java.jsonapi.core.converters.Converter;
-import com.github.mbarberot.java.jsonapi.core.converters.Converters;
 
 import java.util.Date;
 
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField.field;
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship.relationship;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationField.field;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationRelationship.relationship;
 import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
 import static com.github.mbarberot.java.jsonapi.core.converters.Converters.dateConverter;
 import static com.github.mbarberot.java.jsonapi.core.converters.Converters.integerConverter;

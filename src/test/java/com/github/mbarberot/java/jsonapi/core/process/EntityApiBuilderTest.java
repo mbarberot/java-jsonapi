@@ -2,7 +2,6 @@ package com.github.mbarberot.java.jsonapi.core.process;
 
 import com.github.mbarberot.java.jsonapi.core.introspection.EntityWrapperFactory;
 import com.github.mbarberot.java.jsonapi.core.introspection.EntityWriter;
-import com.github.mbarberot.java.jsonapi.structure.document.DataDocument;
 import com.github.mbarberot.java.jsonapi.structure.document.Document;
 import com.github.mbarberot.java.jsonapi.structure.document.SingleDataDocument;
 import com.github.mbarberot.java.jsonapi.structure.resources.Attributes;
@@ -16,7 +15,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship.relationship;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationRelationship.relationship;
 import static com.google.common.collect.ImmutableMap.of;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Maps.newHashMap;

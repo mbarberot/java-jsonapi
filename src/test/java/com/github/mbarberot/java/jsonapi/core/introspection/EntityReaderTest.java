@@ -8,8 +8,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationField.field;
-import static com.github.mbarberot.java.jsonapi.configuration.EntityConfigurationRelationship.relationship;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationField.field;
+import static com.github.mbarberot.java.jsonapi.configuration.ConfigurationRelationship.relationship;
 import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
 import static com.github.mbarberot.java.jsonapi.test.utils.AuthorHelper.newAuthor;
 import static com.github.mbarberot.java.jsonapi.test.utils.BookHelper.getBookConfig;
