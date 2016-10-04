@@ -19,7 +19,7 @@ public class EntityReader {
     public EntityReader(JsonApiEntityConfiguration configuration, Object entity) {
         this.configuration = configuration;
         this.entity = entity;
-        this.entityClass = configuration.getEntityClass();
+        this.entityClass = configuration.getObjectClass();
     }
 
     public String getType() {

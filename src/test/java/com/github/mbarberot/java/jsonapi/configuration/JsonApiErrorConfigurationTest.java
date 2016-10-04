@@ -7,48 +7,61 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static com.github.mbarberot.java.jsonapi.configuration.JsonApiEntityConfiguration.newEntityConfiguration;
-import static com.google.common.collect.Lists.newArrayList;
+import static com.github.mbarberot.java.jsonapi.configuration.JsonApiErrorConfiguration.newErrorConfiguration;
 import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class JsonApiEntityConfigurationTest {
+public class JsonApiErrorConfigurationTest {
 
-    private JsonApiEntityConfiguration x;
-    private JsonApiEntityConfiguration y;
-    private JsonApiEntityConfiguration z;
+    private JsonApiErrorConfiguration x;
+    private JsonApiErrorConfiguration y;
+    private JsonApiErrorConfiguration z;
 
     @Mock
     private ConfigurationField idField;
     @Mock
-    private ConfigurationField attributeField;
-    @Mock
-    private ConfigurationRelationship relationField;
+    private ConfigurationField anyField;
+
 
     @Before
     public void setUp() throws Exception {
-        x = newEntityConfiguration()
+        x = newErrorConfiguration()
                 .objectClass(Book.class)
                 .type("book")
                 .idField(idField)
-                .attributeFields(newArrayList(attributeField))
-                .relationshipFields(newArrayList(relationField))
+                .codeField(anyField)
+                .detailField(anyField)
+                .linksField(anyField)
+                .metaField(anyField)
+                .sourceField(anyField)
+                .statusField(anyField)
+                .titleField(anyField)
                 .build();
 
-        y = newEntityConfiguration()
+        y = newErrorConfiguration()
                 .objectClass(Book.class)
                 .type("book")
                 .idField(idField)
-                .attributeFields(newArrayList(attributeField))
-                .relationshipFields(newArrayList(relationField))
+                .codeField(anyField)
+                .detailField(anyField)
+                .linksField(anyField)
+                .metaField(anyField)
+                .sourceField(anyField)
+                .statusField(anyField)
+                .titleField(anyField)
                 .build();
 
-        z = newEntityConfiguration()
+        z = newErrorConfiguration()
                 .objectClass(Book.class)
                 .type("book")
                 .idField(idField)
-                .attributeFields(newArrayList(attributeField))
-                .relationshipFields(newArrayList(relationField))
+                .codeField(anyField)
+                .detailField(anyField)
+                .linksField(anyField)
+                .metaField(anyField)
+                .sourceField(anyField)
+                .statusField(anyField)
+                .titleField(anyField)
                 .build();
     }
 
@@ -85,36 +98,40 @@ public class JsonApiEntityConfigurationTest {
 
     @Test
     public void testEquals_differentAttributes() throws Exception {
-        assertFalse(x.equals(new JsonApiEntityConfiguration()));
-        assertFalse(x.equals(newEntityConfiguration()
+        assertFalse(x.equals(new JsonApiErrorConfiguration()));
+        assertFalse(x.equals(newErrorConfiguration()
                 .objectClass(Book.class)
                 .type("book")
                 .idField(idField)
-                .attributeFields(newArrayList(attributeField))
+                .sourceField(anyField)
                 .build()));
-        assertFalse(x.equals(newEntityConfiguration()
+        assertFalse(x.equals(newErrorConfiguration()
                 .objectClass(Book.class)
                 .type("book")
                 .idField(idField)
-                .relationshipFields(newArrayList(relationField))
+                .titleField(anyField)
                 .build()));
-        assertFalse(x.equals(newEntityConfiguration()
+        assertFalse(x.equals(newErrorConfiguration()
                 .objectClass(Book.class)
                 .type("book")
-                .attributeFields(newArrayList(attributeField))
-                .relationshipFields(newArrayList(relationField))
+                .statusField(anyField)
                 .build()));
-        assertFalse(x.equals(newEntityConfiguration()
+        assertFalse(x.equals(newErrorConfiguration()
                 .objectClass(Book.class)
                 .idField(idField)
-                .attributeFields(newArrayList(attributeField))
-                .relationshipFields(newArrayList(relationField))
+                .codeField(anyField)
                 .build()));
-        assertFalse(x.equals(newEntityConfiguration()
+        assertFalse(x.equals(newErrorConfiguration()
+                .objectClass(Book.class)
                 .type("book")
                 .idField(idField)
-                .attributeFields(newArrayList(attributeField))
-                .relationshipFields(newArrayList(relationField))
+                .codeField(anyField)
+                .detailField(anyField)
+                .linksField(anyField)
+                .metaField(anyField)
+                .sourceField(anyField)
+                .statusField(anyField)
+                .titleField(null)
                 .build()));
     }
 
@@ -124,7 +141,7 @@ public class JsonApiEntityConfigurationTest {
         assertTrue(x.equals(y));
         assertTrue(x.equals(y));
 
-        JsonApiEntityConfiguration notX = new JsonApiEntityConfiguration();
+        JsonApiErrorConfiguration notX = new JsonApiErrorConfiguration();
         assertFalse(x.equals(notX));
         assertFalse(x.equals(notX));
         assertFalse(x.equals(notX));
@@ -147,31 +164,26 @@ public class JsonApiEntityConfigurationTest {
     public void testHashCode_notEqualsObjects() throws Exception {
         assertNotEquals(
                 x.hashCode(),
-                newEntityConfiguration()
+                newErrorConfiguration()
                         .objectClass(Book.class)
                         .type("book")
-                        .attributeFields(newArrayList(attributeField))
-                        .relationshipFields(newArrayList(relationField))
                         .build().hashCode()
         );
 
         assertNotEquals(
                 x.hashCode(),
-                newEntityConfiguration()
+                newErrorConfiguration()
                         .objectClass(Book.class)
                         .idField(idField)
-                        .attributeFields(newArrayList(attributeField))
-                        .relationshipFields(newArrayList(relationField))
                         .build().hashCode()
         );
 
         assertNotEquals(
                 x.hashCode(),
-                newEntityConfiguration()
+                newErrorConfiguration()
                         .type("book")
                         .idField(idField)
-                        .attributeFields(newArrayList(attributeField))
-                        .relationshipFields(newArrayList(relationField))
+                        .metaField(anyField)
                         .build().hashCode()
         );
     }

@@ -79,7 +79,7 @@ public class EntityWriterTest {
     public void setAttributes_NoConfig_I() throws Exception {
         EntityWriter<Book> myEntityWriter = new EntityWriter<>(
                 newEntityConfiguration()
-                        .entityClass(Book.class)
+                        .objectClass(Book.class)
                         .idField(field("id"))
                         .type("book")
                         .build(),
@@ -97,7 +97,7 @@ public class EntityWriterTest {
     public void setAttributes_NoConfig_II() throws Exception {
         EntityWriter<Book> myEntityWriter = new EntityWriter<>(
                 newEntityConfiguration()
-                        .entityClass(Book.class)
+                        .objectClass(Book.class)
                         .idField(field("id"))
                         .attributeFields(newArrayList(
                                 field("isbn"),
@@ -148,7 +148,7 @@ public class EntityWriterTest {
         
         EntityWriter<Book> myEntityWriter = new EntityWriter<>(
                 newEntityConfiguration()
-                        .entityClass(Book.class)
+                        .objectClass(Book.class)
                         .idField(field("id"))
                         .type("book")
                         .build(),
@@ -165,7 +165,7 @@ public class EntityWriterTest {
 
         EntityWriter<Book> myEntityWriter = new EntityWriter<>(
                 newEntityConfiguration()
-                        .entityClass(Book.class)
+                        .objectClass(Book.class)
                         .idField(field("id"))
                         .type("book")
                         .relationshipFields(newArrayList(

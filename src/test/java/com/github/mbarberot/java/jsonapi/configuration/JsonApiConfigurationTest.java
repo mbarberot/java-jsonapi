@@ -2,9 +2,11 @@ package com.github.mbarberot.java.jsonapi.configuration;
 
 import com.github.mbarberot.java.jsonapi.test.utils.Author;
 import com.github.mbarberot.java.jsonapi.test.utils.Book;
+import com.github.mbarberot.java.jsonapi.test.utils.MyError;
 import com.github.mbarberot.java.jsonapi.utils.ConfigurationNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.ExcludeCategories;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -18,13 +20,18 @@ import static org.mockito.Mockito.doReturn;
 public class JsonApiConfigurationTest {
 
     @Mock
-    private JsonApiEntityConfiguration configA;
+    private JsonApiEntityConfiguration configEntityA;
+    @Mock
+    private JsonApiEntityConfiguration configEntityB;
+    @Mock
+    private JsonApiEntityConfiguration configEntityC;
 
     @Mock
-    private JsonApiEntityConfiguration configB;
-
+    private JsonApiErrorConfiguration configErrorA;
     @Mock
-    private JsonApiEntityConfiguration configC;
+    private JsonApiErrorConfiguration configErrorB;
+    @Mock
+    private JsonApiErrorConfiguration configErrorC;
 
     private JsonApiConfiguration x;
     private JsonApiConfiguration y;
@@ -32,30 +39,49 @@ public class JsonApiConfigurationTest {
 
     @Before
     public void setUp() throws Exception {
-        doReturn(Book.class).when(configA).getEntityClass();
-        doReturn("book").when(configA).getType();
+        doReturn(Book.class).when(configEntityA).getObjectClass();
+        doReturn("book").when(configEntityA).getType();
 
-        doReturn(Author.class).when(configB).getEntityClass();
-        doReturn("author").when(configB).getType();
+        doReturn(Author.class).when(configEntityB).getObjectClass();
+        doReturn("author").when(configEntityB).getType();
         
-        doReturn(String.class).when(configC).getEntityClass();
-        doReturn("string").when(configC).getType();
+        doReturn(String.class).when(configEntityC).getObjectClass();
+        doReturn("string").when(configEntityC).getType();
 
-        x = newConfiguration().entityConfigurations(newArrayList(configA, configB)).build();
-        y = newConfiguration().entityConfigurations(newArrayList(configA, configB)).build();
-        z = newConfiguration().entityConfigurations(newArrayList(configA, configB)).build();
+        doReturn(Exception.class).when(configErrorA).getObjectClass();
+        doReturn("exception").when(configErrorA).getType();
+
+        doReturn(MyError.class).when(configErrorB).getObjectClass();
+        doReturn("error").when(configErrorB).getType();
+
+        doReturn(Object.class).when(configErrorC).getObjectClass();
+        doReturn("string").when(configErrorC).getType();
+
+
+        x = newConfiguration()
+                .entityConfigurations(newArrayList(configEntityA, configEntityB))
+                .errorsConfigurations(newArrayList(configErrorA, configErrorB))
+                .build();
+        y = newConfiguration()
+                .entityConfigurations(newArrayList(configEntityA, configEntityB))
+                .errorsConfigurations(newArrayList(configErrorA, configErrorB))
+                .build();
+        z = newConfiguration()
+                .entityConfigurations(newArrayList(configEntityA, configEntityB))
+                .errorsConfigurations(newArrayList(configErrorA, configErrorB))
+                .build();
     }
 
     @Test
     public void getEntityConfiguration_byClass() throws Exception {
-        assertEquals(configA, x.getEntityConfiguration(Book.class));
-        assertEquals(configB, x.getEntityConfiguration(Author.class));
+        assertEquals(configEntityA, x.getEntityConfiguration(Book.class));
+        assertEquals(configEntityB, x.getEntityConfiguration(Author.class));
     }
 
     @Test
     public void getEntityConfiguration_byType() throws Exception {
-        assertEquals(configA, x.getEntityConfiguration("book"));
-        assertEquals(configB, x.getEntityConfiguration("author"));
+        assertEquals(configEntityA, x.getEntityConfiguration("book"));
+        assertEquals(configEntityB, x.getEntityConfiguration("author"));
     }
 
     @Test(expected = ConfigurationNotFoundException.class)
@@ -68,6 +94,28 @@ public class JsonApiConfigurationTest {
         x.getEntityConfiguration("int");
     }
     
+    @Test
+    public void getErrorConfiguration_byClass() throws Exception {
+        assertEquals(configErrorA, x.getErrorConfiguration(Exception.class));
+        assertEquals(configErrorB, x.getErrorConfiguration(MyError.class));
+    }
+
+    @Test
+    public void getErrorConfiguration_byType() throws Exception {
+        assertEquals(configErrorA, x.getErrorConfiguration("exception"));
+        assertEquals(configErrorB, x.getErrorConfiguration("error"));
+    }
+
+    @Test(expected = ConfigurationNotFoundException.class)
+    public void getErrorConfiguration_byType_notFound() throws Exception {
+        x.getErrorConfiguration(Integer.class);
+    }
+
+    @Test(expected = ConfigurationNotFoundException.class)
+    public void getErrorConfiguration_byName_notFound() throws Exception {
+        x.getErrorConfiguration("int");
+    }
+
     @Test
     public void testEquals_ToSelf() throws Exception {
         //noinspection EqualsWithItself
@@ -102,9 +150,13 @@ public class JsonApiConfigurationTest {
     @Test
     public void testEquals_differentAttributes() throws Exception {
         assertFalse(x.equals(newConfiguration().entityConfigurations(newArrayList()).build()));
-        assertFalse(x.equals(newConfiguration().entityConfigurations(newArrayList(configA)).build()));
-        assertFalse(x.equals(newConfiguration().entityConfigurations(newArrayList(configB)).build()));
-        assertFalse(x.equals(newConfiguration().entityConfigurations(newArrayList(configA, configB, configC)).build()));
+        assertFalse(x.equals(newConfiguration().entityConfigurations(newArrayList(configEntityA)).build()));
+        assertFalse(x.equals(newConfiguration().entityConfigurations(newArrayList(configEntityB)).build()));
+        assertFalse(x.equals(newConfiguration().entityConfigurations(newArrayList(configEntityA, configEntityB, configEntityC)).build()));
+        assertFalse(x.equals(newConfiguration()
+                .entityConfigurations(newArrayList(configEntityA, configEntityB))
+                .errorsConfigurations(newArrayList(configErrorA))
+                .build()));
     }
 
     @Test
@@ -135,9 +187,13 @@ public class JsonApiConfigurationTest {
     @Test
     public void testHashCode_notEqualsObjects() throws Exception {
         assertNotEquals(x.hashCode(), newConfiguration().entityConfigurations(newArrayList()).build().hashCode());
-        assertNotEquals(x.hashCode(), newConfiguration().entityConfigurations(newArrayList(configA)).build().hashCode());
-        assertNotEquals(x.hashCode(), newConfiguration().entityConfigurations(newArrayList(configB)).build().hashCode());
-        assertNotEquals(x.hashCode(), newConfiguration().entityConfigurations(newArrayList(configA, configB, configC)).build().hashCode());
+        assertNotEquals(x.hashCode(), newConfiguration().entityConfigurations(newArrayList(configEntityA)).build().hashCode());
+        assertNotEquals(x.hashCode(), newConfiguration().entityConfigurations(newArrayList(configEntityB)).build().hashCode());
+        assertNotEquals(x.hashCode(), newConfiguration().entityConfigurations(newArrayList(configEntityA, configEntityB, configEntityC)).build().hashCode());
+        assertNotEquals(x.hashCode(), newConfiguration()
+                .entityConfigurations(newArrayList(configEntityA, configEntityB))
+                .errorsConfigurations(newArrayList(configErrorA))
+                .build().hashCode());
     }
 
 }

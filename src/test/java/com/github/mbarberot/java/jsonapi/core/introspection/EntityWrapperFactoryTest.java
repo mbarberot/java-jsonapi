@@ -31,7 +31,7 @@ public class EntityWrapperFactoryTest {
         entity = new Book();
         doReturn(entityConfig).when(config).getEntityConfiguration(Book.class);
         doReturn(entityConfig).when(config).getEntityConfiguration("book");
-        doReturn(Book.class).when(entityConfig).getEntityClass();
+        doReturn(Book.class).when(entityConfig).getObjectClass();
     }
 
     @Test

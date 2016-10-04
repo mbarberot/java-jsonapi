@@ -4,22 +4,19 @@ import com.github.mbarberot.java.jsonapi.configuration.builders.JsonApiEntityCon
 
 import java.util.List;
 
-public class JsonApiEntityConfiguration {
-    private Class entityClass;
-    private String type;
-    private ConfigurationField idField;
+public class JsonApiEntityConfiguration extends JsonApiAbstractConfiguration {
     private List<ConfigurationField> attributeFields;
     private List<ConfigurationRelationship> relationshipFields;
 
     public JsonApiEntityConfiguration() {
     }
 
-    public Class getEntityClass() {
-        return entityClass;
+    public Class getObjectClass() {
+        return objectClass;
     }
 
-    public void setEntityClass(Class entityClass) {
-        this.entityClass = entityClass;
+    public void setObjectClass(Class objectClass) {
+        this.objectClass = objectClass;
     }
 
     public String getType() {
@@ -58,12 +55,10 @@ public class JsonApiEntityConfiguration {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
 
         JsonApiEntityConfiguration that = (JsonApiEntityConfiguration) o;
 
-        if (entityClass != null ? !entityClass.equals(that.entityClass) : that.entityClass != null) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
-        if (idField != null ? !idField.equals(that.idField) : that.idField != null) return false;
         if (attributeFields != null ? !attributeFields.equals(that.attributeFields) : that.attributeFields != null)
             return false;
         return relationshipFields != null ? relationshipFields.equals(that.relationshipFields) : that.relationshipFields == null;
@@ -72,9 +67,7 @@ public class JsonApiEntityConfiguration {
 
     @Override
     public int hashCode() {
-        int result = entityClass != null ? entityClass.hashCode() : 0;
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (idField != null ? idField.hashCode() : 0);
+        int result = super.hashCode();
         result = 31 * result + (attributeFields != null ? attributeFields.hashCode() : 0);
         result = 31 * result + (relationshipFields != null ? relationshipFields.hashCode() : 0);
         return result;

@@ -75,7 +75,7 @@ public class EntityReaderTest {
 
     private JsonApiEntityConfiguration getLiteBookConfig() {
         return newEntityConfiguration()
-                .entityClass(Book.class)
+                .objectClass(Book.class)
                 .idField(field("id"))
                 .type("book")
                 .build();

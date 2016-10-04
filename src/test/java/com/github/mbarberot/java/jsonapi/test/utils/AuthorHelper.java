@@ -9,7 +9,7 @@ import static com.google.common.collect.Lists.newArrayList;
 public class AuthorHelper {
     public static JsonApiEntityConfiguration getAuthorConfig() {
         return newEntityConfiguration()
-                .entityClass(Author.class)
+                .objectClass(Author.class)
                 .idField(field("id"))
                 .attributeFields(newArrayList(
                         field("firstname"),

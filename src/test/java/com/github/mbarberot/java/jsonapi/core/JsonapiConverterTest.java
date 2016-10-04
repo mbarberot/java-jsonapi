@@ -65,7 +65,7 @@ public class JsonapiConverterTest {
         JsonApiConfiguration config = newConfiguration()
                 .entityConfigurations(
                         newArrayList(newEntityConfiguration()
-                                .entityClass(Author.class)
+                                .objectClass(Author.class)
                                 .idField(field("id"))
                                 .type("author")
                                 .build())).build();

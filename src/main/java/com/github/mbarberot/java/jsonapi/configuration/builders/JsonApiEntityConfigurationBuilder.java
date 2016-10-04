@@ -14,8 +14,8 @@ public class JsonApiEntityConfigurationBuilder {
         config = new JsonApiEntityConfiguration();
     }
 
-    public JsonApiEntityConfigurationBuilder entityClass(Class entityClass) {
-        config.setEntityClass(entityClass);
+    public JsonApiEntityConfigurationBuilder objectClass(Class entityClass) {
+        config.setObjectClass(entityClass);
         return this;
     }
 

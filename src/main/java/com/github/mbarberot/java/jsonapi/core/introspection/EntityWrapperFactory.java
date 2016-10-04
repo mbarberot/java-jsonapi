@@ -21,7 +21,7 @@ public class EntityWrapperFactory {
     public EntityWriter<?> createEntityWriter(String type) throws ConfigurationNotFoundException, JsonApiIntrospectionException {
         JsonApiEntityConfiguration entityConfig = configuration.getEntityConfiguration(type);
         try {
-            return new EntityWriter<>(entityConfig, entityConfig.getEntityClass().newInstance());
+            return new EntityWriter<>(entityConfig, entityConfig.getObjectClass().newInstance());
         } catch (InstantiationException | IllegalAccessException e) {
             throw new JsonApiIntrospectionException(e);
         }

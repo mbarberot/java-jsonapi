@@ -15,7 +15,7 @@ import static java.lang.String.format;
 public class BookHelper {
     public static JsonApiEntityConfiguration getBookConfig() {
         return newEntityConfiguration()
-                .entityClass(Book.class)
+                .objectClass(Book.class)
                 .idField(field("id"))
                 .attributeFields(newArrayList(
                         field("isbn"),

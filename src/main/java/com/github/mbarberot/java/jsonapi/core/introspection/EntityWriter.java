@@ -22,7 +22,7 @@ public class EntityWriter<T> {
     public EntityWriter(JsonApiEntityConfiguration configuration, T entity) {
         this.configuration = configuration;
         this.entity = entity;
-        this.entityClass = configuration.getEntityClass();
+        this.entityClass = configuration.getObjectClass();
     }
 
     public T getEntity() {
